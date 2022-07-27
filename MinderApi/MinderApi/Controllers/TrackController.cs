@@ -13,22 +13,22 @@ namespace MinderApi.Controllers
     [ApiController]
     public class TrackController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration Configuration;
 
         public TrackController(IConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         [HttpGet]
         public JsonResult GetTracks() {
-        //     string serverStr = System.Configuration.ConfigurationManager.
-        //     ConnectionStrings["server"].ConnectionString;
-        //     string userStr = System.Configuration.ConfigurationManager.
-        // ConnectionStrings["password"].ConnectionString;
-        //     Console.WriteLine("server str: " + serverStr);
+            string serverStr = Configuration["Credentials:Server"];
+            string userStr = Configuration["Credentials:User"];
+            string databaseStr = Configuration["Credentials:Database"];
+            string portStr = Configuration["Credentials:Port"];
+            string passwordStr = Configuration["Credentials:Password"];
+            string ConnectionString = $"server={serverStr};user={userStr};database={databaseStr};port={portStr};password={passwordStr}";
 
-            string ConnectionString = "server=localhost;user=root;database=chinook_abridged;port=3306;password=password";
             MySqlConnection connection = new MySqlConnection(ConnectionString);
             connection.Open();
             MySqlCommand trackCommand = new MySqlCommand("SELECT name FROM track;", connection);
