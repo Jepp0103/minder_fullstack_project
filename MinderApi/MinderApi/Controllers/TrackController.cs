@@ -22,6 +22,12 @@ namespace MinderApi.Controllers
 
         [HttpGet]
         public JsonResult GetTracks() {
+        //     string serverStr = System.Configuration.ConfigurationManager.
+        //     ConnectionStrings["server"].ConnectionString;
+        //     string userStr = System.Configuration.ConfigurationManager.
+        // ConnectionStrings["password"].ConnectionString;
+        //     Console.WriteLine("server str: " + serverStr);
+
             string ConnectionString = "server=localhost;user=root;database=chinook_abridged;port=3306;password=password";
             MySqlConnection connection = new MySqlConnection(ConnectionString);
             connection.Open();
