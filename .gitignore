@@ -2,8 +2,6 @@
 /MinderApi/MinderApi/appsettings.json
 
 # Directories
-/MinderApi/.vs/MinderApi/DesignTimeBuild/
-/MinderApi/.vs/MinderApi/FileContentIndex/
 /MinderApi/.vs/
 /MinderApi/MinderApi/obj/
 /MinderApi/MinderApi/bin/
