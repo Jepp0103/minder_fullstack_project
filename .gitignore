@@ -111,3 +111,47 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/MinderUi/Minder/dist
+/MinderUi/Minder/tmp
+/MinderUi/Minder/out-tsc
+/MinderUi/Minder/bazel-out
+
+# Node
+/MinderUi/Minder/node_modules
+/MinderUi/Minder/npm-debug.log
+/MinderUi/Minder/yarn-error.log
+
+# IDEs and editors
+/MinderUi/Minder/.idea/
+/MinderUi/Minder/.project
+/MinderUi/Minder/.classpath
+/MinderUi/Minder/.c9/
+/MinderUi/Minder/*.launch
+/MinderUi/Minder/.settings/
+/MinderUi/Minder/*.sublime-workspace
+
+# Visual Studio Code
+/MinderUi/Minder/.vscode/*
+/MinderUi/Minder/!.vscode/settings.json
+/MinderUi/Minder/!.vscode/tasks.json
+/MinderUi/Minder/!.vscode/launch.json
+/MinderUi/Minder/!.vscode/extensions.json
+/MinderUi/Minder/.history/*
+
+# Miscellaneous
+/MinderUi/Minder/.angular/cache
+/MinderUi/Minder/.sass-cache/
+/MinderUi/Minder/connect.lock
+/MinderUi/Minder/coverage
+/MinderUi/Minder/libpeerconnection.log
+/MinderUi/Minder/testem.log
+/MinderUi/Minder/typings
+
+# System files
+/MinderUi/Minder/.DS_Store
+/MinderUi/Minder/Thumbs.db
