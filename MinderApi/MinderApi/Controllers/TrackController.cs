@@ -10,41 +10,98 @@ namespace MinderApi.Controllers
     public class TrackController : ControllerBase
     {
         private readonly IConfiguration Configuration;
-        private readonly ChinookDatabase dbConnection;
+        private readonly MusicDatabase musicDatabase;
 
         public TrackController(IConfiguration configuration)
         {
             Configuration = configuration;
-            dbConnection = new ChinookDatabase(Configuration);
+            musicDatabase = new MusicDatabase(Configuration);
         }
 
         [HttpGet]
         public JsonResult GetTracks() {
             string query = "SELECT `name` FROM `track`;";
-            var trackTable = dbConnection.SelectSQLQuery(query);
+            var trackTable = musicDatabase.SelectSQLQuery(query);
+            return new JsonResult(trackTable);
+        }
+
+        [HttpGet]
+        public JsonResult SearchTracks()
+        {
+            string query = "SELECT `name` FROM `track`;";
+            var trackTable = musicDatabase.SelectSQLQuery(query);
             return new JsonResult(trackTable);
         }
 
         [HttpPost]
         public JsonResult AddTrack([FromBody] Track trackModel) {
             string insertionQuery = @"
-                INSERT INTO `track` (`Name`, `MediaTypeId`, `Composer`, `Milliseconds`, `UnitPrice`)
-                VALUES(@Name, @MediaTypeId, @Composer, @Milliseconds, @UnitPrice);
+                INSERT INTO `track` (`Name`, `AlbumId`, `MediaTypeId`, `GenreId`, `Composer`, `Milliseconds`, `Bytes`, `UnitPrice`)
+                VALUES(@Name, @AlbumId, @MediaTypeId, @GenreId, @Composer, @Milliseconds, @Bytes, @UnitPrice);
             ";
 
-            var insertedTrackId = dbConnection.InsertSQLQuery(insertionQuery, new[]
+            var response = musicDatabase.InsertOrUpdateSQLQuery(insertionQuery, new[]
                 {
                     new MySqlParameter("@Name", trackModel.Name),
+                    new MySqlParameter("@AlbumId", trackModel.AlbumId),
                     new MySqlParameter("@MediaTypeId", trackModel.MediaTypeId),
+                    new MySqlParameter("@GenreId", trackModel.GenreId),
                     new MySqlParameter("@Composer", trackModel.Composer),
                     new MySqlParameter("@Milliseconds", trackModel.MilliSeconds),
+                    new MySqlParameter("@Bytes", trackModel.Bytes),
                     new MySqlParameter("@UnitPrice", trackModel.UnitPrice)
-                }
+                },
+                "track",
+                "trackId"
             );
 
-            string selectQuery = @"SELECT * FROM `track` WHERE TrackId = @TrackId";
-            var response = dbConnection.SelectSQLQueryById(selectQuery, "@TrackId", insertedTrackId);
+            return new JsonResult(response);
+        }
 
+        [Route("{trackId}")]
+        [HttpPut]
+        public JsonResult UpdateTrack([FromBody] Track trackModel, int trackId)
+        {
+            string updateQuery = @$"
+                UPDATE `track` 
+                SET `Name` = @Name, `AlbumId` = @AlbumId, `MediaTypeId` = @MediaTypeId, `GenreId` = @GenreId, 
+                    `Composer` = @Composer, `Milliseconds` = @Milliseconds, `Bytes` = @Bytes, `UnitPrice` = @UnitPrice
+                WHERE `TrackID` = @TrackId
+                ;
+            ";
+
+            var response = musicDatabase.InsertOrUpdateSQLQuery(updateQuery, new[]
+                {
+                    new MySqlParameter("@Name", trackModel.Name),
+                    new MySqlParameter("@AlbumId", trackModel.AlbumId),
+                    new MySqlParameter("@MediaTypeId", trackModel.MediaTypeId),
+                    new MySqlParameter("@GenreId", trackModel.GenreId),
+                    new MySqlParameter("@Composer", trackModel.Composer),
+                    new MySqlParameter("@Milliseconds", trackModel.MilliSeconds),
+                    new MySqlParameter("@Bytes", trackModel.Bytes),
+                    new MySqlParameter("@UnitPrice", trackModel.UnitPrice),
+                    new MySqlParameter("@TrackId", trackId)
+
+                },
+                "track",
+                "TrackId",
+                trackId
+            );
+
+            return new JsonResult(response);
+        }
+
+        [Route("{trackId}")]
+        [HttpDelete]
+        public JsonResult DeleteTrack( int trackId)
+        {
+            string deleteQuery = @$"
+                DELETE FROM `track` 
+                WHERE TrackId = @TrackId
+                ;
+            ";
+
+            var response = musicDatabase.DeleteQuery(deleteQuery, trackId, "TrackId", "track");
             return new JsonResult(response);
         }
     }   
