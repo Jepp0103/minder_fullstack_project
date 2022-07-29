@@ -44,10 +44,10 @@ namespace MinderApi.Models
             return table;
         }
 
-        public DataTable SelectSQLQueryById(string query, string parameterId, long parameterValue) {
+        public DataTable SelectSQLQueryById(string query, string parameterId, long parameterIdValue) {
             var connection = ConnectToDB();
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue(parameterId, parameterValue);
+            command.Parameters.AddWithValue(parameterId, parameterIdValue);
             MySqlDataReader reader = command.ExecuteReader();
             DataTable table = new DataTable();
             table.Load(reader);
@@ -55,6 +55,20 @@ namespace MinderApi.Models
             DisconnectDB(reader, command, connection);
             return table;
         }
+
+        public DataTable SearchSQLQuery(string query, string searchString)
+        {
+            var connection = ConnectToDB();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@SearchWord", $"%{searchString}%");
+            MySqlDataReader reader = command.ExecuteReader();
+            DataTable table = new DataTable();
+            table.Load(reader);
+
+            DisconnectDB(reader, command, connection);
+            return table;
+        }
+
 
         public DataTable InsertOrUpdateSQLQuery(string query, MySqlParameter[] parameters, string tableName, string idName, int argId = 0) {
             var connection = ConnectToDB();

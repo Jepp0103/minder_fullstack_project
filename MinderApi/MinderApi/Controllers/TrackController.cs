@@ -25,11 +25,18 @@ namespace MinderApi.Controllers
             return new JsonResult(trackTable);
         }
 
+        [Route("search")]
         [HttpGet]
-        public JsonResult SearchTracks()
+        public JsonResult SearchTracks([FromQuery] string searchString)
         {
-            string query = "SELECT `name` FROM `track`;";
-            var trackTable = musicDatabase.SelectSQLQuery(query);
+            string query = @"
+                            SELECT t.`Name`, ar.`Name`, al.`Title`, g.`Name`, t.`Composer`FROM `track` t
+                            INNER JOIN `album` al ON t.AlbumId = al.AlbumId
+                            INNER JOIN `artist`ar ON al.ArtistId = ar.ArtistId
+                            INNER JOIN `genre` g ON t.GenreId = g.GenreId
+                            WHERE t.`Name` LIKE @SearchWord;
+            ";
+            var trackTable = musicDatabase.SearchSQLQuery(query, searchString);
             return new JsonResult(trackTable);
         }
 
@@ -93,7 +100,7 @@ namespace MinderApi.Controllers
 
         [Route("{trackId}")]
         [HttpDelete]
-        public JsonResult DeleteTrack( int trackId)
+        public JsonResult DeleteTrack(int trackId)
         {
             string deleteQuery = @$"
                 DELETE FROM `track` 
