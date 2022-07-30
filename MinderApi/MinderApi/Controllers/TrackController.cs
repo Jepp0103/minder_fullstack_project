@@ -59,7 +59,7 @@ namespace MinderApi.Controllers
                     new MySqlParameter("@UnitPrice", trackModel.UnitPrice)
                 },
                 "track",
-                "trackId"
+                "TrackId"
             );
 
             return new JsonResult(response);
