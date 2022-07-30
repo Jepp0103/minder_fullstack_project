@@ -1,0 +1,21 @@
+<h1>Registred???</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Artist Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataItem of Artists">
+        <td>{{dataItem.Name}}</td>
+        <td>
+          <Button type="button">
+            Edit
+          </Button>
+          <Button type="button">
+            Delete
+          </Button>
+        </td>
+    </tr>
+  </tbody>
+</table>

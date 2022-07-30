@@ -30,10 +30,10 @@ namespace MinderApi.Controllers
         public JsonResult SearchTracks([FromQuery] string searchString)
         {
             string query = @"
-                            SELECT t.`Name`, ar.`Name`, al.`Title`, g.`Name`, t.`Composer`FROM `track` t
-                            INNER JOIN `album` al ON t.AlbumId = al.AlbumId
-                            INNER JOIN `artist`ar ON al.ArtistId = ar.ArtistId
-                            INNER JOIN `genre` g ON t.GenreId = g.GenreId
+                            SELECT t.`Name`, ar.`Name`, al.`Title`, g.`Name`, t.`Composer` FROM `track` t
+                            INNER JOIN `album` al ON t.`AlbumId` = al.`AlbumId`
+                            INNER JOIN `artist`ar ON al.`ArtistId` = ar.`ArtistId`
+                            INNER JOIN `genre` g ON t.`GenreId` = g.`GenreId`
                             WHERE t.`Name` LIKE @SearchWord;
             ";
             var trackTable = musicDatabase.SearchSQLQuery(query, searchString);
