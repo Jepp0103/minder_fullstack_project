@@ -1,4 +1,14 @@
-<h1>Registred???</h1>
+<button type="button" (click)="addClick()"
+  data-backdrop="static" data-keyboard="false"
+>Add artist</button>
+<div [ngClass]="modalStyle">
+  <div class="modal-content">
+    <app-create-artist [art]="art" *ngIf="ActivateCreateUpdateArtistComponent">
+    </app-create-artist>
+    <button id="closeArtistModalBtn" (click)="closeClick()">Cancel</button>
+  </div>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -6,8 +16,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataItem of Artists">
-        <td>{{dataItem.Name}}</td>
+    <tr id="artistTable" *ngFor="let artist of Artists">
+        <td><p>{{artist.name}}</p></td>
         <td>
           <Button type="button">
             Edit

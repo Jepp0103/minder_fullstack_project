@@ -1,0 +1,12 @@
+<section id="artistModalHeader">
+  <h3></h3>
+</section>
+<section>
+  <label for="artistNameInput">Name</label>
+  <br>
+  <input id="artistNameInput" type="text" [(ngModel)]="Name" required>
+</section>
+<section id="artistModalFooter">
+<button (click)="addArtist()" id="artistAddBtn">Add</button>
+<button (click)="updateArtist()" id="artistEditBtn">Edit</button>
+</section>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-read-track',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReadTrackComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:SharedService) { }
+
+  Tracks:any=[];
 
   ngOnInit(): void {
+    this.service.getTracks().subscribe(data => {
+      this.Tracks = data;
+    })
   }
 
 }

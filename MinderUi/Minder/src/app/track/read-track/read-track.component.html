@@ -1,1 +1,28 @@
-<p>read-track works!</p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Artist</th>
+      <th>Album</th>
+      <th>Genre</th>
+      <th>Composer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let track of Tracks">
+        <td>{{track.TrackName}}</td>
+        <td>{{track.ArtistName}}</td>
+        <td>{{track.AlbumTitle}}</td>
+        <td>{{track.GenreName}}</td>
+        <td>{{track.Composer}}</td>
+        <td>
+          <Button type="button">
+            Edit
+          </Button>
+          <Button type="button">
+            Delete
+          </Button>
+        </td>
+    </tr>
+  </tbody>
+</table>

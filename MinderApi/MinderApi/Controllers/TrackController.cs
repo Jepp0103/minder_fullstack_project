@@ -20,7 +20,11 @@ namespace MinderApi.Controllers
 
         [HttpGet]
         public JsonResult GetTracks() {
-            string query = "SELECT `name` FROM `track`;";
+            string query = @"   
+                            SELECT t.`Name`  as `TrackName`, ar.`Name` as `ArtistName`, al.`Title` as `AlbumTitle`, g.`Name` as `GenreName`, t.`Composer` FROM `track` t
+                            INNER JOIN `album` al ON t.`AlbumId` = al.`AlbumId`
+                            INNER JOIN `artist`ar ON al.`ArtistId` = ar.`ArtistId`
+                            INNER JOIN `genre` g ON t.`GenreId` = g.`GenreId`; ";
             var trackTable = musicDatabase.SelectSQLQuery(query);
             return new JsonResult(trackTable);
         }
@@ -30,7 +34,7 @@ namespace MinderApi.Controllers
         public JsonResult SearchTracks([FromQuery] string searchString)
         {
             string query = @"
-                            SELECT t.`Name`, ar.`Name`, al.`Title`, g.`Name`, t.`Composer` FROM `track` t
+                            SELECT t.`Name` as `TrackName`, ar.`Name` as `ArtistName`, al.`Title`, g.`Name`, t.`Composer` FROM `track` t
                             INNER JOIN `album` al ON t.`AlbumId` = al.`AlbumId`
                             INNER JOIN `artist`ar ON al.`ArtistId` = ar.`ArtistId`
                             INNER JOIN `genre` g ON t.`GenreId` = g.`GenreId`
