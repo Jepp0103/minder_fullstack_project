@@ -15,11 +15,19 @@ export class TrackApiService {
     return this.http.get<any>(this.APIUrl + '/tracks');
   }
 
+  getTrackById(id:number):Observable<any> {
+    return this.http.get<any>(this.APIUrl + '/tracks/' + id);
+  }
+
+  searchTracks(searchString:string):Observable<any[]> {
+    return this.http.get<any>(this.APIUrl + '/tracks/search/?searchString=' + searchString);
+  }
+
   addTrack(val:any) {
     return this.http.post(this.APIUrl + '/tracks', val);
   }
 
-  updateTrack(val:any) {
+  updateTrack(id:number, val:any) {
     return this.http.put(this.APIUrl + '/tracks', val);
   }
 

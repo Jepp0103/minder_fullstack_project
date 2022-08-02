@@ -17,7 +17,15 @@ export class ReadDeleteArtistComponent implements OnInit {
   }
 
   loadArtists(){
-    this.service.getArtists().subscribe(data=> {
+    this.service.getArtists().subscribe(data => {
+      this.Artists = data;
+    })
+  }
+
+  searchArtists() {
+    const searchObject = document.getElementById('searchArtistsInput') as HTMLInputElement | null;
+    const searchString = String(searchObject?.value);
+    this.service.searchArtists(searchString).subscribe(data => {
       this.Artists = data;
     })
   }
@@ -25,7 +33,7 @@ export class ReadDeleteArtistComponent implements OnInit {
   deleteArtist(id:number) {
     this.service.deleteArtist(id).subscribe(data => {
       alert(data);
+      window.location.reload();
     });
-    window.location.reload();
   }
 }

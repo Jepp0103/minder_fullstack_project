@@ -1,1 +1,30 @@
-<p>create-update-track works!</p>
+<section>
+  <button type="button" (click)="addClick()"
+    data-backdrop="static" class="addBtn" data-keyboard="false"
+  >Add track
+  </button>
+</section>
+<section>
+  <div [ngClass]="modalStyle">
+    <div class="modal-content">
+      <section>
+          <h3></h3>
+      </section>
+      <section>
+          <input class="modalInput" type="text" [(ngModel)]="Name" required placeholder="Name">
+          <input class="modalInput" type="text" [(ngModel)]="AlbumId" required placeholder="Album id">
+          <input class="modalInput" type="text" [(ngModel)]="MediaTypeId" required placeholder="Mediatype id">
+          <input class="modalInput" type="text" [(ngModel)]="GenreId" required placeholder="Genre id">
+          <input class="modalInput" type="text" [(ngModel)]="Composer" required placeholder="Composer">
+          <input class="modalInput" type="text" [(ngModel)]="Milliseconds" required placeholder="Milliseconds">
+          <input class="modalInput" type="text" [(ngModel)]="Bytes" required placeholder="Bytes">
+          <input class="modalInput" type="text" [(ngModel)]="UnitPrice" required placeholder="Unit price">
+      </section>
+      <section id="artistModalFooter">
+        <button *ngIf="isCreating" (click)="addTrack()" class="modalBtn">Add</button>
+        <button *ngIf="isEditing" (click)="editTrack()" class="modalBtn">Edit</button>
+        <button id="closeArtistModalBtn" (click)="closeClick()" class="modalBtn">Cancel</button>
+      </section>
+    </div>
+  </div>
+</section>

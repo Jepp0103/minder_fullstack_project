@@ -21,12 +21,22 @@ namespace MinderApi.Controllers
         [HttpGet]
         public JsonResult GetTracks() {
             string query = @"   
-                            SELECT t.`Name`  as `TrackName`, ar.`Name` as `ArtistName`, al.`Title` as `AlbumTitle`, g.`Name` as `GenreName`, t.`Composer` FROM `track` t
+                            SELECT t.`TrackId`, t.`Name`  as `TrackName`, ar.`Name` as `ArtistName`, al.`Title` as `AlbumTitle`, g.`Name` as `GenreName`, t.`Composer`, t.`Milliseconds`, t.`UnitPrice`, t.`Bytes` FROM `track` t
                             INNER JOIN `album` al ON t.`AlbumId` = al.`AlbumId`
                             INNER JOIN `artist`ar ON al.`ArtistId` = ar.`ArtistId`
                             INNER JOIN `genre` g ON t.`GenreId` = g.`GenreId`; ";
             var trackTable = musicDatabase.SelectSQLQuery(query);
             return new JsonResult(trackTable);
+        }
+
+        [Route("{trackId}")]
+        [HttpGet]
+        public JsonResult GetArtistById(int trackId)
+        {
+            string query = @"SELECT * FROM `track`
+                             WHERE `TrackId` = @TrackId;";
+            var artistTable = musicDatabase.SelectSQLQueryById(query, "@TrackId", trackId);
+            return new JsonResult(artistTable);
         }
 
         [Route("search")]

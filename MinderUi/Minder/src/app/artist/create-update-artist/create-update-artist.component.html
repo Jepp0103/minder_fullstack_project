@@ -1,20 +1,24 @@
-<button type="button" (click)="addClick()"
-  data-backdrop="static" data-keyboard="false"
->Add artist</button>
-<div [ngClass]="modalStyle">
-  <div class="modal-content">
-    <section id="artistModalHeader">
-        <h3></h3>
-    </section>
-    <section>
-        <label for="artistNameInput">Name</label>
-        <br>
-        <input id="artistNameInput" type="text" [(ngModel)]="Name" required>
-    </section>
-    <section id="artistModalFooter">
-      <button *ngIf="isCreating" (click)="addArtist()">Add</button>
-      <button *ngIf="isEditing" (click)="editArtist()">Edit</button>
-      <button id="closeArtistModalBtn" (click)="closeClick()">Cancel</button>
-    </section>
+<section>
+  <button type="button" (click)="addClick()"
+    data-backdrop="static" class="addBtn" data-keyboard="false"
+  >Add artist
+  </button>
+</section>
+<section>
+  <div [ngClass]="modalStyle">
+    <div class="modal-content">
+      <section>
+          <h3></h3>
+      </section>
+      <section>
+          <label for="artistNameInput">Name</label>
+          <input class="modalInput" type="text" [(ngModel)]="Name" required>
+      </section>
+      <section>
+        <button *ngIf="isCreating" (click)="addArtist()" class="modalBtn">Add</button>
+        <button *ngIf="isEditing" (click)="editArtist()" class="modalBtn">Edit</button>
+        <button id="closeArtistModalBtn" (click)="closeClick()" class="modalBtn">Cancel</button>
+      </section>
+    </div>
   </div>
-</div>
+</section>

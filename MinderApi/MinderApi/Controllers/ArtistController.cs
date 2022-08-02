@@ -43,12 +43,19 @@ namespace MinderApi.Controllers
         [HttpGet]
         public JsonResult SearchArtists([FromQuery] string searchString)
         {
-            string query = @"
-                            SELECT `Name` FROM `artist` 
+            try
+            {
+                string query = @"
+                            SELECT * FROM `artist` 
                             WHERE `Name` LIKE @SearchWord;
-            ";
-            var artistTable = musicDatabase.SearchSQLQuery(query, searchString);
-            return new JsonResult(artistTable);
+                ";
+                var artistTable = musicDatabase.SearchSQLQuery(query, searchString);
+                return new JsonResult(artistTable);
+            }
+            catch (MySqlException e){
+                return new JsonResult($"Error searching for artists: {e}");    
+            }
+            
         }
 
         [HttpPost]
@@ -98,14 +105,21 @@ namespace MinderApi.Controllers
         [HttpDelete]
         public JsonResult DeleteArtist(int artistId)
         {
-            string deleteQuery = @$"
+            try
+            {
+                string deleteQuery = @$"
                 DELETE FROM `artist` 
                 WHERE ArtistId = @ArtistId
                 ;
-            ";
+                ";
 
-            var response = musicDatabase.DeleteQuery(deleteQuery, artistId, "ArtistId", "artist");
-            return new JsonResult(response);
+                var response = musicDatabase.DeleteQuery(deleteQuery, artistId, "ArtistId", "artist");
+                return new JsonResult(response);
+            } catch (MySqlException e) {   
+                Console.WriteLine(e.Message);
+                return new JsonResult("Error: The artist may have child tables such as albums or tracks and cannot be deleted.");
+            }
+
         }
     }
 }

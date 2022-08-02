@@ -1,3 +1,13 @@
+<section class="upperSection">
+  <app-create-update-track #createUpdateTrack>
+  </app-create-update-track>
+  <div>
+    <input type="text" id="searchTracksInput" placeholder="Search for tracks">
+  </div>
+  <div>
+    <Button type="submit" id="searchBtn" (click)="searchTracks()">Search</Button>
+  </div>
+</section>
 <table>
   <thead>
     <tr>
@@ -16,10 +26,10 @@
         <td>{{track.GenreName}}</td>
         <td>{{track.Composer}}</td>
         <td>
-          <Button type="button">
+          <Button type="button" (click)="createUpdateTrack.editClick(track.TrackId)" class="editBtns">
             Edit
           </Button>
-          <Button type="button">
+          <Button type="button" (click)="deleteTrack(track.AlbumId)" class="delBtns">
             Delete
           </Button>
         </td>

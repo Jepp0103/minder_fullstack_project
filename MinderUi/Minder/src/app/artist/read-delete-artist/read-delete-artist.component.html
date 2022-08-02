@@ -1,23 +1,32 @@
-
-<app-create-update-artist #createUpdateArt art="">
-</app-create-update-artist>
-<table>
-  <thead>
-    <tr>
-      <th>Artist Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="artistTable" *ngFor="let artist of Artists">
-        <td><p>{{artist.Name}}</p></td>
-        <td>
-          <Button type="button" (click)="createUpdateArt.editClick(artist.ArtistId)">
-            Edit
-          </Button>
-          <Button type="button" (click)="deleteArtist(artist.ArtistId)">
-            Delete
-          </Button>
-        </td>
-    </tr>
-  </tbody>
-</table>
+<section class="upperSection">
+  <app-create-update-artist #createUpdateArt>
+  </app-create-update-artist>
+  <div>
+    <input type="text" id="searchArtistsInput" placeholder="Search for artists">
+  </div>
+  <div>
+    <Button type="submit" id="searchBtn" (click)="searchArtists()">Search</Button>
+  </div>
+</section>
+<section>
+  <table>
+    <thead>
+      <tr>
+        <th>Artist Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let artist of Artists">
+          <td><p>{{artist.Name}}</p></td>
+          <td class="buttonTds">
+            <Button type="button" (click)="createUpdateArt.editClick(artist.ArtistId)" class="editBtns">
+              Edit
+            </Button>
+            <Button type="button" (click)="deleteArtist(artist.ArtistId)" class="delBtns">
+              Delete
+            </Button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

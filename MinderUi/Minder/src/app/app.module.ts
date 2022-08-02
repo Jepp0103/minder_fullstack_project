@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackComponent } from './track/track.component';
-import { ReadTrackComponent } from './track/read-track/read-track.component';
+import { ReadDeleteTrackComponent } from './track/read-delete-track/read-delete-track.component';
 import { CreateUpdateTrackComponent } from './track/create-update-track/create-update-track.component';
 import { ArtistComponent } from './artist/artist.component';
 import { ReadDeleteArtistComponent } from './artist/read-delete-artist/read-delete-artist.component';
@@ -19,7 +19,7 @@ import { TrackApiService } from './api_services/track-api.service';
   declarations: [
     AppComponent,
     TrackComponent,
-    ReadTrackComponent,
+    ReadDeleteTrackComponent,
     CreateUpdateTrackComponent,
     ArtistComponent,
     ReadDeleteArtistComponent,

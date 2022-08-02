@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReadDeleteArtistComponent } from './read-delete-artist.component';
 
-describe('ReadArtistComponent', () => {
+describe('ReadDeleteArtistComponent', () => {
   let component: ReadDeleteArtistComponent;
   let fixture: ComponentFixture<ReadDeleteArtistComponent>;
 

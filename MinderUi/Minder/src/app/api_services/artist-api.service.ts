@@ -18,11 +18,15 @@ export class ArtistApiService {
     return this.http.get<any>(this.APIUrl + '/artists/' + id);
   }
 
+  searchArtists(searchString:string):Observable<any> {
+    return this.http.get<any>(this.APIUrl + '/artists/search?searchString=' + searchString);
+  }
+
   addArtist(body:any) {
     return this.http.post(this.APIUrl + '/artists', body);
   }
 
-  updateArtist( id:number, body:any) {
+  updateArtist(id:number, body:any) {
     return this.http.put(this.APIUrl + '/artists/' + id, body);
   }
 

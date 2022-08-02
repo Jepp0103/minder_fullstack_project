@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArtistApiService } from 'src/app/api_services/artist-api.service';
 
 @Component({
@@ -9,11 +9,17 @@ import { ArtistApiService } from 'src/app/api_services/artist-api.service';
 
 export class CreateUpdateArtistComponent implements OnInit {
 
-  constructor(private service:ArtistApiService) { }
+  constructor(private service:ArtistApiService) {
+    this.modalStyle = this.modalNone;
+    this.Name = "";
+    this.ArtistId = 0;
+  }
 
-  Name:any;
-  ArtistId:any;
-  modalStyle = 'artistModalNone';
+  Name:string;
+  ArtistId:number;
+  modalStyle: string;
+  modalActive = 'modal';
+  modalNone = 'modalNone'
   public isEditing: boolean = false;
   public isCreating: boolean = false;
 
@@ -21,7 +27,7 @@ export class CreateUpdateArtistComponent implements OnInit {
   }
 
   closeClick() {
-    this.modalStyle = 'artistModalNone';
+    this.modalStyle = this.modalNone;
     this.isCreating = false;
     this.isEditing = false;
   }
@@ -31,7 +37,7 @@ export class CreateUpdateArtistComponent implements OnInit {
     this.isCreating = true;
 
     //Toggle modal
-    this.modalStyle = this.modalStyle == 'artistModalNone' ? 'artistModal' : 'artistModalNone';
+    this.modalStyle = this.modalStyle == this.modalNone ? this.modalActive : this.modalNone;
   }
 
   addArtist() {
@@ -44,14 +50,13 @@ export class CreateUpdateArtistComponent implements OnInit {
       alert("Artist created with the following information:\n"
        + "Name: " + name + ", Id: " + artistId);
     });
-    this.modalStyle = 'artistModalNone';
+    this.modalStyle = this.modalNone;
     this.Name = "";
     this.isCreating = false;
     window.location.reload();
   }
 
   editClick(id:number) {
-    this.ArtistId = id;
     this.isEditing = true;
 
     this.service.getArtistById(id).subscribe(data => {
@@ -59,7 +64,7 @@ export class CreateUpdateArtistComponent implements OnInit {
     });
 
     //Toggle modal
-    this.modalStyle = this.modalStyle == 'artistModalNone' ? 'artistModal' : 'artistModalNone';
+    this.modalStyle = this.modalStyle == this.modalNone ? this.modalActive : this.modalNone;
   }
 
   editArtist() {
@@ -72,9 +77,11 @@ export class CreateUpdateArtistComponent implements OnInit {
       const artistId = Object.values(data)[0].ArtistId;
       alert("Artist updated with the following information:\n"
        + "Name: " + name + ", Id: " + artistId);
+
+       this.isEditing = false;
+       this.modalStyle = this.modalNone;
+       window.location.reload();
     });
-    this.isEditing = false;
-    this.modalStyle = 'artistModalNone';
-    window.location.reload();
+
   }
 }

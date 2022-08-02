@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReadTrackComponent } from './read-track.component';
+import { ReadDeleteTrackComponent } from './read-delete-track.component';
 
 describe('ReadTrackComponent', () => {
-  let component: ReadTrackComponent;
-  let fixture: ComponentFixture<ReadTrackComponent>;
+  let component: ReadDeleteTrackComponent;
+  let fixture: ComponentFixture<ReadDeleteTrackComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReadTrackComponent ]
+      declarations: [ ReadDeleteTrackComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReadTrackComponent);
+    fixture = TestBed.createComponent(ReadDeleteTrackComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
