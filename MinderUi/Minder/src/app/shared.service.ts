@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,9 +26,6 @@ export class SharedService {
   deleteTrack(val:any) {
     return this.http.delete(this.APIUrl + '/tracks', val);
   }
-
-
-
 
   getArtists():Observable<any[]> {
     return this.http.get<any>(this.APIUrl + '/artists');

@@ -12,27 +12,9 @@ export class ReadArtistComponent implements OnInit {
   constructor(private service:SharedService) { }
 
   Artists:any=[];
-  ActivateCreateUpdateArtistComponent:boolean=false;
   art: any;
-  modalStyle = 'artistModalNone';
 
   ngOnInit(): void {
-    this.loadArtists();
-  }
-
-  addClick() {
-    this.art= {
-      Name: ""
-    }
-    this.ActivateCreateUpdateArtistComponent = true;
-
-    //Toggle modal
-    this.modalStyle = this.modalStyle == 'artistModalNone' ? 'artistModal' : 'artistModalNone';
-  }
-
-  closeClick() {
-    this.modalStyle = 'artistModalNone';
-    this.ActivateCreateUpdateArtistComponent = false;
     this.loadArtists();
   }
 

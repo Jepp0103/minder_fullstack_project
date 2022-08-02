@@ -10,8 +10,8 @@ namespace MinderApi.Controllers
     public class ArtistController : ControllerBase
     {
 
-        private readonly IConfiguration Configuration;
-        private readonly MusicDatabase musicDatabase;
+        private IConfiguration Configuration;
+        private MusicDatabase musicDatabase;
 
         public ArtistController(IConfiguration configuration)
         {

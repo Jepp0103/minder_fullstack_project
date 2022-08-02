@@ -24,7 +24,7 @@ import { SharedService } from './shared.service';
     CreateUpdateTrackComponent,
     ArtistComponent,
     ReadArtistComponent,
-    CreateArtistComponent,
+    CreateArtistComponent
   ],
   imports: [
     CommonModule,

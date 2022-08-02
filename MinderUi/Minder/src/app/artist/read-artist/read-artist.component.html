@@ -1,14 +1,6 @@
-<button type="button" (click)="addClick()"
-  data-backdrop="static" data-keyboard="false"
->Add artist</button>
-<div [ngClass]="modalStyle">
-  <div class="modal-content">
-    <app-create-artist [art]="art" *ngIf="ActivateCreateUpdateArtistComponent">
-    </app-create-artist>
-    <button id="closeArtistModalBtn" (click)="closeClick()">Cancel</button>
-  </div>
-</div>
 
+<app-create-artist>
+</app-create-artist>
 <table>
   <thead>
     <tr>
