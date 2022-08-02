@@ -12,7 +12,8 @@
         <input id="artistNameInput" type="text" [(ngModel)]="Name" required>
     </section>
     <section id="artistModalFooter">
-      <button (click)="addArtist()" id="artistAddBtn">Add</button>
+      <button *ngIf="isCreating" (click)="addArtist()">Add</button>
+      <button *ngIf="isEditing" (click)="editArtist()">Edit</button>
       <button id="closeArtistModalBtn" (click)="closeClick()">Cancel</button>
     </section>
   </div>

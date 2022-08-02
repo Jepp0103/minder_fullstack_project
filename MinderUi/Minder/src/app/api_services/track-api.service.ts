@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+export class TrackApiService {
 
-export class SharedService {
   readonly APIUrl = "https://localhost:7151/api";
   constructor(private http:HttpClient) { }
 
@@ -26,22 +26,4 @@ export class SharedService {
   deleteTrack(val:any) {
     return this.http.delete(this.APIUrl + '/tracks', val);
   }
-
-  getArtists():Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + '/artists');
-  }
-
-  addArtist(val:any) {
-    return this.http.post(this.APIUrl + '/artists', val);
-  }
-
-  updateArtist(val:any) {
-    return this.http.put(this.APIUrl + '/artists', val);
-  }
-
-  deleteArtist(val:any) {
-    return this.http.delete(this.APIUrl + '/artists', val);
-  }
-
-
 }

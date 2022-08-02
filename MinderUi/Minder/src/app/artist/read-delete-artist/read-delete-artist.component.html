@@ -1,0 +1,23 @@
+
+<app-create-update-artist #createUpdateArt art="">
+</app-create-update-artist>
+<table>
+  <thead>
+    <tr>
+      <th>Artist Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="artistTable" *ngFor="let artist of Artists">
+        <td><p>{{artist.Name}}</p></td>
+        <td>
+          <Button type="button" (click)="createUpdateArt.editClick(artist.ArtistId)">
+            Edit
+          </Button>
+          <Button type="button" (click)="deleteArtist(artist.ArtistId)">
+            Delete
+          </Button>
+        </td>
+    </tr>
+  </tbody>
+</table>

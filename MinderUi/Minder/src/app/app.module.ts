@@ -3,17 +3,16 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackComponent } from './track/track.component';
 import { ReadTrackComponent } from './track/read-track/read-track.component';
 import { CreateUpdateTrackComponent } from './track/create-update-track/create-update-track.component';
 import { ArtistComponent } from './artist/artist.component';
-import { ReadArtistComponent } from './artist/read-artist/read-artist.component';
-import { CreateArtistComponent } from './artist/create-artist/create-artist.component';
-import { SharedService } from './shared.service';
-
+import { ReadDeleteArtistComponent } from './artist/read-delete-artist/read-delete-artist.component';
+import { CreateUpdateArtistComponent } from './artist/create-update-artist/create-update-artist.component';
+import { ArtistApiService } from './api_services/artist-api.service';
+import { TrackApiService } from './api_services/track-api.service';
 
 
 @NgModule({
@@ -23,8 +22,8 @@ import { SharedService } from './shared.service';
     ReadTrackComponent,
     CreateUpdateTrackComponent,
     ArtistComponent,
-    ReadArtistComponent,
-    CreateArtistComponent
+    ReadDeleteArtistComponent,
+    CreateUpdateArtistComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +33,7 @@ import { SharedService } from './shared.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SharedService],
+  providers: [ArtistApiService, TrackApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

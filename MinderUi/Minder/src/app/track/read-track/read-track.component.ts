@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/shared.service';
+import { TrackApiService } from 'src/app/api_services/track-api.service';
 
 @Component({
   selector: 'app-read-track',
@@ -8,7 +8,7 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ReadTrackComponent implements OnInit {
 
-  constructor(private service:SharedService) { }
+  constructor(private service:TrackApiService) { }
 
   Tracks:any=[];
 

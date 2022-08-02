@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReadArtistComponent } from './read-artist.component';
+import { ReadDeleteArtistComponent } from './read-delete-artist.component';
 
 describe('ReadArtistComponent', () => {
-  let component: ReadArtistComponent;
-  let fixture: ComponentFixture<ReadArtistComponent>;
+  let component: ReadDeleteArtistComponent;
+  let fixture: ComponentFixture<ReadDeleteArtistComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReadArtistComponent ]
+      declarations: [ ReadDeleteArtistComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReadArtistComponent);
+    fixture = TestBed.createComponent(ReadDeleteArtistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

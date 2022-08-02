@@ -22,10 +22,22 @@ namespace MinderApi.Controllers
         [HttpGet]
         public JsonResult GetArtists()
         {
-            string query = "SELECT `name` FROM `artist`;";
+            string query = "SELECT * FROM `artist` ORDER BY `Name`;";
             var artistTable = musicDatabase.SelectSQLQuery(query);
             return new JsonResult(artistTable);
         }
+
+        [Route("{artistId}")]
+        [HttpGet]
+        public JsonResult GetArtistById(int artistId)
+        {
+            string query = @"SELECT * FROM `artist`
+                             WHERE `ArtistId` = @ArtistId;";
+            var artistTable = musicDatabase.SelectSQLQueryById(query, "@ArtistId", artistId);
+            return new JsonResult(artistTable);
+        }
+
+
 
         [Route("search")]
         [HttpGet]
