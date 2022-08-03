@@ -3,24 +3,18 @@ using MySql.Data.MySqlClient;
 
 namespace MinderApi.Models
 {
-    public class MusicDatabase
+    public class MusicDatabaseMySQL
     {
         private readonly IConfiguration Configuration;
 
-        public MusicDatabase(IConfiguration configuration)
+        public MusicDatabaseMySQL(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public MySqlConnection ConnectToDB()
         {
-            string serverStr = Configuration["Credentials:Server"];
-            string userStr = Configuration["Credentials:User"];
-            string databaseStr = Configuration["Credentials:Database"];
-            string portStr = Configuration["Credentials:Port"];
-            string passwordStr = Configuration["Credentials:Password"];
-            string ConnectionString = $"server={serverStr};user={userStr};database={databaseStr};port={portStr};password={passwordStr}";
-
+            string ConnectionString = Configuration.GetConnectionString("Credentials");
             MySqlConnection connection = new MySqlConnection(ConnectionString);
             connection.Open();
 

@@ -11,12 +11,12 @@ namespace MinderApi.Controllers
     {
 
         private IConfiguration Configuration;
-        private MusicDatabase musicDatabase;
+        private MusicDatabaseMySQL musicDatabase;
 
         public ArtistController(IConfiguration configuration)
         {
             Configuration = configuration;
-            musicDatabase = new MusicDatabase(Configuration);
+            musicDatabase = new MusicDatabaseMySQL(Configuration);
         }
 
         [HttpGet]

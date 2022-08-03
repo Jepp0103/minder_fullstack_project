@@ -10,12 +10,12 @@ namespace MinderApi.Controllers
     public class TrackController : ControllerBase
     {
         private readonly IConfiguration Configuration;
-        private readonly MusicDatabase musicDatabase;
+        private readonly MusicDatabaseMySQL musicDatabase;
 
         public TrackController(IConfiguration configuration)
         {
             Configuration = configuration;
-            musicDatabase = new MusicDatabase(Configuration);
+            musicDatabase = new MusicDatabaseMySQL(Configuration);
         }
 
         [HttpGet]

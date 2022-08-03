@@ -2,6 +2,9 @@ using System.Configuration;
 using System.Collections.Specialized;
 
 using Newtonsoft.Json.Serialization;
+using MinderApi.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
