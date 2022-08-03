@@ -9,12 +9,6 @@ import { ArtistApiService } from 'src/app/api_services/artist-api.service';
 
 export class CreateUpdateArtistComponent implements OnInit {
 
-  constructor(private service:ArtistApiService) {
-    this.modalStyle = this.modalNone;
-    this.Name = "";
-    this.ArtistId = 0;
-  }
-
   Name:string;
   ArtistId:number;
   modalStyle: string;
@@ -22,6 +16,12 @@ export class CreateUpdateArtistComponent implements OnInit {
   modalNone = 'modalNone'
   public isEditing: boolean = false;
   public isCreating: boolean = false;
+
+  constructor(private service:ArtistApiService) {
+    this.modalStyle = this.modalNone;
+    this.Name = "";
+    this.ArtistId = 0;
+  }
 
   ngOnInit(): void {
   }
@@ -49,17 +49,19 @@ export class CreateUpdateArtistComponent implements OnInit {
       const artistId = Object.values(data)[0].ArtistId;
       alert("Artist created with the following information:\n"
        + "Name: " + name + ", Id: " + artistId);
+      this.modalStyle = this.modalNone;
+      this.Name = "";
+      this.isCreating = false;
+      window.location.reload();
     });
-    this.modalStyle = this.modalNone;
-    this.Name = "";
-    this.isCreating = false;
-    window.location.reload();
+
   }
 
   editClick(id:number) {
     this.isEditing = true;
 
     this.service.getArtistById(id).subscribe(data => {
+      this.ArtistId = data[0].ArtistId;
       this.Name = data[0].Name;
     });
 
@@ -71,13 +73,12 @@ export class CreateUpdateArtistComponent implements OnInit {
     var val = {
       Name: this.Name
     };
-
     this.service.updateArtist(this.ArtistId, val).subscribe(data => {
+      console.log("dadad", data)
       const name = Object.values(data)[0].Name;
       const artistId = Object.values(data)[0].ArtistId;
       alert("Artist updated with the following information:\n"
        + "Name: " + name + ", Id: " + artistId);
-
        this.isEditing = false;
        this.modalStyle = this.modalNone;
        window.location.reload();

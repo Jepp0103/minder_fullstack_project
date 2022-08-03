@@ -10,7 +10,7 @@
         public int GenreId { get; set; }
         public int MilliSeconds { get; set; }
         public int Bytes { get; set; }
-        public int UnitPrice { get; set; }
+        public double UnitPrice { get; set; }
 
     }
 }

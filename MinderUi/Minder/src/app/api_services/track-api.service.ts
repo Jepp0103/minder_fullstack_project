@@ -27,11 +27,12 @@ export class TrackApiService {
     return this.http.post(this.APIUrl + '/tracks', val);
   }
 
-  updateTrack(id:number, val:any) {
-    return this.http.put(this.APIUrl + '/tracks', val);
+  updateTrack(id:number, body:any) {
+    console.log("body here:", body)
+    return this.http.put(this.APIUrl + '/tracks/' + id, body);
   }
 
-  deleteTrack(val:any) {
-    return this.http.delete(this.APIUrl + '/tracks', val);
+  deleteTrack(id:number) {
+    return this.http.delete(this.APIUrl + '/tracks/' + id);
   }
 }

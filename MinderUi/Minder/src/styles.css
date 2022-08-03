@@ -13,7 +13,7 @@ table, tr, td, th {
   text-align: center
 }
 
-input, #searchBtn {
+.searchInput, .searchBtn, .addBtn {
   margin-top: 1em;
 }
 
@@ -37,11 +37,6 @@ table {
 .modalBtn, .modalInput {
   margin: 0.5em;
 }
-
-.addBtn {
-  margin-top: 1em;
-}
-
 
 .modalNone {
   display: none; /* Hidden by default */
@@ -78,4 +73,8 @@ table {
   background-color: var(--colorBgHeader);
 }
 
+.modalLabel {
+  margin-left: 0.5em;
+  width: 20%;
+}
 

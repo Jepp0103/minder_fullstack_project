@@ -11,14 +11,22 @@
           <h3></h3>
       </section>
       <section>
-          <input class="modalInput" type="text" [(ngModel)]="Name" required placeholder="Name">
-          <input class="modalInput" type="text" [(ngModel)]="AlbumId" required placeholder="Album id">
-          <input class="modalInput" type="text" [(ngModel)]="MediaTypeId" required placeholder="Mediatype id">
-          <input class="modalInput" type="text" [(ngModel)]="GenreId" required placeholder="Genre id">
-          <input class="modalInput" type="text" [(ngModel)]="Composer" required placeholder="Composer">
-          <input class="modalInput" type="text" [(ngModel)]="Milliseconds" required placeholder="Milliseconds">
-          <input class="modalInput" type="text" [(ngModel)]="Bytes" required placeholder="Bytes">
-          <input class="modalInput" type="text" [(ngModel)]="UnitPrice" required placeholder="Unit price">
+          <label class="modalLabel" for="nameInp">Name</label>
+          <input class="modalInput" id="nameInp" type="text" [(ngModel)]="Name" required placeholder="Name">
+          <label class="modalLabel" for="albInp">Album id</label>
+          <input class="modalInput" id="albInp" type="text" [(ngModel)]="AlbumId" required placeholder="Album id">
+          <label class="modalLabel" for="mediaInp">Media type id</label>
+          <input class="modalInput" id="mediaInp" type="text" [(ngModel)]="MediaTypeId" required placeholder="Mediatype id">
+          <label class="modalLabel" for="genreInp">Genre id</label>
+          <input class="modalInput" id="genreInp" type="text" [(ngModel)]="GenreId" required placeholder="Genre id">
+          <label class="modalLabel" for="compInp">Composer</label>
+          <input class="modalInput" id="compInp" type="text" [(ngModel)]="Composer" required placeholder="Composer">
+          <label class="modalLabel" for="milInp">Milliseconds</label>
+          <input class="modalInput" id="milInp" type="text" [(ngModel)]="Milliseconds" required placeholder="Milliseconds">
+          <label class="modalLabel" for="bytInp">Bytes</label>
+          <input class="modalInput" id="bytInp" type="text" [(ngModel)]="Bytes" required placeholder="Bytes">
+          <label class="modalLabel" for="unInp">Unit price</label>
+          <input class="modalInput" id="unInp" type="text" [(ngModel)]="UnitPrice" required placeholder="Unit price">
       </section>
       <section id="artistModalFooter">
         <button *ngIf="isCreating" (click)="addTrack()" class="modalBtn">Add</button>

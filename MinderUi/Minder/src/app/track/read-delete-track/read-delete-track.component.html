@@ -2,10 +2,10 @@
   <app-create-update-track #createUpdateTrack>
   </app-create-update-track>
   <div>
-    <input type="text" id="searchTracksInput" placeholder="Search for tracks">
+    <input type="text" id="searchTracksInput" class="searchInput" placeholder="Search for tracks">
   </div>
   <div>
-    <Button type="submit" id="searchBtn" (click)="searchTracks()">Search</Button>
+    <button type="submit" class="searchBtn" (click)="searchTracks()">Search</button>
   </div>
 </section>
 <table>
@@ -29,7 +29,7 @@
           <Button type="button" (click)="createUpdateTrack.editClick(track.TrackId)" class="editBtns">
             Edit
           </Button>
-          <Button type="button" (click)="deleteTrack(track.AlbumId)" class="delBtns">
+          <Button type="button" (click)="deleteTrack(track.TrackId)" class="delBtns">
             Delete
           </Button>
         </td>

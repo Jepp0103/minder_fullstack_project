@@ -7,34 +7,35 @@ import { TrackApiService } from 'src/app/api_services/track-api.service';
   styleUrls: ['./create-update-track.component.css']
 })
 export class CreateUpdateTrackComponent implements OnInit {
-  constructor(private service:TrackApiService) {
-    this.TrackId = 0;
-    this.Name = "";
-    this.AlbumId = 0;
-    this.MediaTypeId = 0;
-    this.GenreId = 0;
-    this.Composer = "";
-    this.Milliseconds = 0;
-    this.Bytes = 0;
-    this.UnitPrice = 0;
-
-    this.modalStyle = this.modalNone;
-  }
 
   Name:string;
-  AlbumId:number;
+  AlbumId:string;
   TrackId:number;
-  MediaTypeId:number;
-  GenreId:number;
+  MediaTypeId:string;
+  GenreId:string;
   Composer:string;
-  Milliseconds:number;
-  Bytes:number;
-  UnitPrice:number;
+  Milliseconds:string;
+  Bytes:string;
+  UnitPrice:string;
   modalStyle:string;
   modalActive = 'modal';
   modalNone = 'modalNone'
   public isEditing: boolean = false;
   public isCreating: boolean = false;
+
+  constructor(private service:TrackApiService) {
+    this.TrackId = 0;
+    this.Name = "";
+    this.AlbumId = "";
+    this.MediaTypeId = "";
+    this.GenreId = "";
+    this.Composer = "";
+    this.Milliseconds = "";
+    this.Bytes = "";
+    this.UnitPrice = "";
+
+    this.modalStyle = this.modalNone;
+  }
 
   ngOnInit(): void {
   }
@@ -47,6 +48,13 @@ export class CreateUpdateTrackComponent implements OnInit {
 
   addClick() {
     this.Name = "";
+    this.AlbumId = "";
+    this.MediaTypeId = "";
+    this.GenreId = "";
+    this.Composer = "";
+    this.Milliseconds = "";
+    this.Bytes = "";
+    this.UnitPrice = "";
     this.isCreating = true;
 
     //Toggle modal
@@ -54,34 +62,33 @@ export class CreateUpdateTrackComponent implements OnInit {
   }
 
   addTrack() {
-    var val = {
+    var content = {
       Name: this.Name,
+      Composer: this.Composer,
       AlbumId: this.AlbumId,
       MediaTypeId: this.MediaTypeId,
       GenreId: this.GenreId,
-      Composer: this.Composer,
       Milliseconds: this.Milliseconds,
       Bytes: this.Bytes,
       UnitPrice: this.UnitPrice
     };
-    this.service.addTrack(val).subscribe(data => {
-      const name = Object.values(data)[0].Name;
-      const trackId = Object.values(data)[0].ArtistId;
-      alert("Track created with the following information:\n"
-       + "Name: " + name + ", Id: " + trackId);
+    this.service.addTrack(content).subscribe(data => {
+      this.alertResponse(data, "added");
     });
-    this.modalStyle = this.modalNone;
-    this.Name = "";
-    this.isCreating = false;
-    window.location.reload();
   }
 
   editClick(id:number) {
-    console.log("idddd:", id);
     this.isEditing = true;
     this.service.getTrackById(id).subscribe(data => {
-      console.log("edit click name", data);
+      this.TrackId = data[0].TrackId;
       this.Name = data[0].Name;
+      this.AlbumId = data[0].AlbumId;
+      this.MediaTypeId = data[0].MediaTypeId;
+      this.GenreId = data[0].GenreId;
+      this.Composer = data[0].Composer;
+      this.Milliseconds = data[0].Milliseconds;
+      this.Bytes = data[0].Bytes;
+      this.UnitPrice = data[0].UnitPrice;
     });
 
     //Toggle modal
@@ -89,19 +96,41 @@ export class CreateUpdateTrackComponent implements OnInit {
   }
 
   editTrack() {
-    var val = {
-      Name: this.Name
+    var content = {
+      Name: this.Name,
+      Composer: this.Composer,
+      AlbumId: this.AlbumId,
+      MediaTypeId: this.MediaTypeId,
+      GenreId: this.GenreId,
+      Milliseconds: this.Milliseconds,
+      Bytes: this.Bytes,
+      UnitPrice: Number(this.UnitPrice)
     };
-
-    this.service.updateTrack(this.TrackId, val).subscribe(data => {
-      const name = Object.values(data)[0].Name;
-      const trackId = Object.values(data)[0].TrackId;
-      alert("Track updated with the following information:\n"
-       + "Name: " + name + ", Id: " + trackId);
+    this.service.updateTrack(this.TrackId, content).subscribe(data => {
+        this.alertResponse(data, "updated");
     });
-    this.isEditing = false;
-    this.modalStyle = this.modalNone;
-    window.location.reload();
   }
 
+  alertResponse(data:Object, command:String) {
+    const name = Object.values(data)[0].Name;
+    const albumId = Object.values(data)[0].AlbumId;
+    const mediaTypeId = Object.values(data)[0].MediaTypeId;
+    const genreId = Object.values(data)[0].GenreId;
+    const composer = Object.values(data)[0].Composer;
+    const milliseconds = Object.values(data)[0].Milliseconds;
+    const bytes = Object.values(data)[0].Bytes;
+    const trackId = Object.values(data)[0].UnitPrice;
+    alert("Track " + command + " with the following information:\n"
+     + "Name: " + name + ", Id: " + trackId + "\n"
+     + "Album id: " + albumId + ", Media type id: " + mediaTypeId + "\n"
+     + "Genre id: " + genreId + ", Composer: " + composer + "\n"
+     + "Milliseconds: " + milliseconds + ", Bytes: " + bytes + "\n"
+    );
+
+     this.modalStyle = this.modalNone;
+     this.Name = "";
+     this.isCreating = false;
+     this.isEditing = false;
+     window.location.reload();
+  }
 }
