@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MinderApi.Models;
+using MinderApi.Models.Database;
 using MySql.Data.MySqlClient;
 
 namespace MinderApi.Controllers

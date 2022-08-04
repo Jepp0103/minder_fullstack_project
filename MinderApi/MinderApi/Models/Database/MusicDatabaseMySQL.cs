@@ -1,12 +1,13 @@
 ﻿using System.Data;
 using MySql.Data.MySqlClient;
 
-namespace MinderApi.Models
-    {
+namespace MinderApi.Models.Database
+{
     //Set up using the MySQL client. Ideally I figured out it is more common to use Entity framework instead but this was the begginning.
-     //The use of entity framework can be seen in the file MusicDatabaseEFContext.cs
-    public class MusicDatabaseMySQL {  
-    
+    //The use of entity framework can be seen in the file MusicDatabaseEFContext.cs
+    public class MusicDatabaseMySQL
+    {
+
         private readonly IConfiguration Configuration;
 
         public MusicDatabaseMySQL(IConfiguration configuration)
@@ -31,7 +32,8 @@ namespace MinderApi.Models
             connection.Close();
         }
 
-        public DataTable SelectSQLQuery(string query) { 
+        public DataTable SelectSQLQuery(string query)
+        {
             var connection = ConnectToDB();
             MySqlCommand command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
@@ -41,7 +43,8 @@ namespace MinderApi.Models
             return table;
         }
 
-        public DataTable SelectSQLQueryById(string query, string parameterId, long parameterIdValue) {
+        public DataTable SelectSQLQueryById(string query, string parameterId, long parameterIdValue)
+        {
             var connection = ConnectToDB();
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue(parameterId, parameterIdValue);
@@ -67,7 +70,8 @@ namespace MinderApi.Models
         }
 
 
-        public DataTable InsertOrUpdateSQLQuery(string query, MySqlParameter[] parameters, string tableName, string idName, int argId = 0) {
+        public DataTable InsertOrUpdateSQLQuery(string query, MySqlParameter[] parameters, string tableName, string idName, int argId = 0)
+        {
             var connection = ConnectToDB();
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddRange(parameters);

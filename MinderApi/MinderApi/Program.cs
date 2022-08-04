@@ -2,8 +2,8 @@ using System.Configuration;
 using System.Collections.Specialized;
 using Pomelo.EntityFrameworkCore.MySql;
 using Newtonsoft.Json.Serialization;
-using MinderApi.Models;
 using Microsoft.EntityFrameworkCore;
+using MinderApi.Models.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
