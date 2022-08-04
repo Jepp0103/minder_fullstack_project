@@ -1,6 +1,6 @@
 using System.Configuration;
 using System.Collections.Specialized;
-
+using Pomelo.EntityFrameworkCore.MySql;
 using Newtonsoft.Json.Serialization;
 using MinderApi.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +18,12 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options=>
 options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore)
     .AddNewtonsoftJson(options=>options.SerializerSettings.ContractResolver=
     new DefaultContractResolver());
+
+var connectionString = builder.Configuration.GetConnectionString("Credentials");
+builder.Services.AddDbContext<MusicDatabaseEFContext>(options =>
+{
+    options.UseMySQL(connectionString, myOptions => ServerVersion.AutoDetect(connectionString));
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

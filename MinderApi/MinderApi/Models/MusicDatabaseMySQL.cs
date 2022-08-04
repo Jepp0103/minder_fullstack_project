@@ -2,15 +2,18 @@
 using MySql.Data.MySqlClient;
 
 namespace MinderApi.Models
-{
-    public class MusicDatabaseMySQL
     {
+    //Set up using the MySQL client. Ideally I figured out it is more common to use Entity framework instead but this was the begginning.
+     //The use of entity framework can be seen in the file MusicDatabaseEFContext.cs
+    public class MusicDatabaseMySQL {  
+    
         private readonly IConfiguration Configuration;
 
         public MusicDatabaseMySQL(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
 
         public MySqlConnection ConnectToDB()
         {

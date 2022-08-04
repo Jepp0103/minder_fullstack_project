@@ -1,6 +1,6 @@
 ﻿namespace MinderApi.Models
 {
-    public class Album
+    public partial class Album
     {
         public int AlbumId { get; set; }
         public string? Title { get; set; }

@@ -17,20 +17,19 @@ namespace MinderApi.Controllers
     [ApiController]
     public class AlbumController : Controller
     {
-        private IConfiguration Configuration;
-        private MusicDatabaseEF musicDatabase;
-        private IServiceCollection Service;
+        private readonly MusicDatabaseEFContext musicDatabase;
+        private readonly ILogger<AlbumController> Logger;
 
-        public AlbumController(IConfiguration configuration, IServiceCollection service, DbContextOptions<MusicDatabaseEF> options)
+        public AlbumController(ILogger<AlbumController> logger, MusicDatabaseEFContext mDatabase)
         {
-            Configuration = configuration;
-            musicDatabase = new MusicDatabaseEF(Configuration, service, options);
+            Logger = logger;
+            musicDatabase = mDatabase;
         }
 
         [HttpGet]
-        public JsonResult getAlbums()
+        public IActionResult getAlbums()
         {
-            var albums = musicDatabase.Albums.ToList();
+            var albums = musicDatabase.Album.ToList();
 
             return new JsonResult(albums);
         }
