@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`Password`) VALUES
-('$2y$10$x52z3S4oYruQqfTB/KoSvu1Uzp/uJ.0USX23ZKJuXvLkjZGClsuqu');
+('$2a$06$MHnq9oL9bg1ieV7j5BlUuOt/mbWz1r.7hv67EFhSgarpQG.Z2mwoG');
 
 -- --------------------------------------------------------
 

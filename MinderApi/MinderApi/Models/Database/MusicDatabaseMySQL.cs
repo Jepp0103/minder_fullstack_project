@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace MinderApi.Models.Database
 {
-    //Set up using the MySQL client. Ideally I figured out it is more common to use Entity framework instead but this was the begginning.
+    //Set up using the MySQL client. Ideally I figured out it is more common to use Entity framework instead but this was the beginning.
     //The use of entity framework can be seen in the file MusicDatabaseEFContext.cs
     public class MusicDatabaseMySQL
     {

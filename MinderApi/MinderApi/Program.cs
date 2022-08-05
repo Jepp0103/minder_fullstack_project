@@ -1,6 +1,3 @@
-using System.Configuration;
-using System.Collections.Specialized;
-using Pomelo.EntityFrameworkCore.MySql;
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using MinderApi.Models.Database;
@@ -19,6 +16,7 @@ options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHa
     .AddNewtonsoftJson(options=>options.SerializerSettings.ContractResolver=
     new DefaultContractResolver());
 
+//Connecting to database using entity framework.
 var connectionString = builder.Configuration.GetConnectionString("Credentials");
 builder.Services.AddDbContext<MusicDatabaseEFContext>(options =>
 {

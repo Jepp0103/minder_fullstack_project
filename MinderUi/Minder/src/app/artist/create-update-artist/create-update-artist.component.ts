@@ -74,7 +74,6 @@ export class CreateUpdateArtistComponent implements OnInit {
       Name: this.Name
     };
     this.service.updateArtist(this.ArtistId, val).subscribe(data => {
-      console.log("dadad", data)
       const name = Object.values(data)[0].Name;
       const artistId = Object.values(data)[0].ArtistId;
       alert("Artist updated with the following information:\n"

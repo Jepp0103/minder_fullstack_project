@@ -11,6 +11,7 @@ namespace MinderApi.Models.Database
 
         public DbSet<Album> Album { get; set; }
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Admin> Admin { get; set; }
 
     }
 }

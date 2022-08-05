@@ -13,25 +13,23 @@ namespace MinderApi.Controllers
     public class AlbumController : Controller
     {
         private readonly MusicDatabaseEFContext musicDbContext;
-        private readonly ILogger<AlbumController> Logger;
 
-        public AlbumController(ILogger<AlbumController> logger, MusicDatabaseEFContext mDbContext)
+        public AlbumController(MusicDatabaseEFContext mDbContext)
         {
-            Logger = logger;
             musicDbContext = mDbContext;
         }
 
         [HttpGet]
-        public IActionResult GetAlbums() {
+        public IEnumerable<Album> GetAlbums() {
             var albums = musicDbContext.Album.ToList();
-            return new JsonResult(albums);
+            return albums;
         }
 
         [Route("{albumId}")]
         [HttpGet]
-        public IActionResult GetAlbumById(int albumId) {
+        public IEnumerable<Album> GetAlbumById(int albumId) {
             var album = musicDbContext.Album.Where(album => album.AlbumId == albumId);
-            return new JsonResult(album);
+            return album;
         }
 
         [Route("search")]
@@ -49,8 +47,7 @@ namespace MinderApi.Controllers
 
                 var insertedAlbum = musicDbContext.Album.Where(album => album.AlbumId == newAlbum.AlbumId);
                 return new JsonResult(insertedAlbum);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return new JsonResult(e);
             }
         }
