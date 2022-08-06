@@ -57,7 +57,7 @@ namespace MinderApi.Controllers
                                       select customer;
                 updatedCustomer.First().FirstName = customerModel.FirstName;
                 updatedCustomer.First().LastName = customerModel.LastName;
-                updatedCustomer.First().Password = customerModel.Password;
+                updatedCustomer.First().Password = Crypter.Blowfish.Crypt(customerModel.Password);
                 updatedCustomer.First().Company = customerModel.Company;
                 updatedCustomer.First().Address = customerModel.Address;
                 updatedCustomer.First().City = customerModel.City;

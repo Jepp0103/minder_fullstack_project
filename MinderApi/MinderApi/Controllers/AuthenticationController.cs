@@ -34,11 +34,15 @@ namespace MinderApi.Controllers
         public bool ValidateUser([FromBody] Customer customerModel)
         {
             var userToValidate = (from customer in musicDbContext.Customer
-                                  where customer.Email == customerModel.Email && 
-                                  (Crypter.CheckPassword((new { customerModel.Password }).Password, customer.Password) == true)
+                                  where customer.Email == customerModel.Email
                                   select customer).ToList();
 
-            bool isUserValid = userToValidate.Count == 0 ? true : false;
+            bool isPasswordValid = false;
+            if (userToValidate.Count == 1) { 
+                isPasswordValid = (Crypter.CheckPassword(customerModel.Password, userToValidate.FirstOrDefault().Password.ToString()));
+            }
+
+            bool isUserValid = isPasswordValid ? true : false;
             return isUserValid;
         }
 
@@ -48,7 +52,7 @@ namespace MinderApi.Controllers
         public bool ValidateAdmin([FromBody] Admin adminModel)
         {
             string storedHashedPassword = (from admin in musicDbContext.Admin
-                                           select new { admin.Password }).First().Password.ToString();
+                                           select new { admin.Password }).FirstOrDefault().Password.ToString();
 
             bool isPasswordValid = Crypter.CheckPassword(adminModel.Password, storedHashedPassword);
             return isPasswordValid;
