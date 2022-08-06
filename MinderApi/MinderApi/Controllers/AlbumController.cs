@@ -29,14 +29,16 @@ namespace MinderApi.Controllers
         [HttpGet]
         public IEnumerable<Album> GetAlbumById(int albumId) {
             var album = musicDbContext.Album.Where(album => album.AlbumId == albumId);
+            System.Diagnostics.Debug.WriteLine("album" + album);
+
             return album;
         }
 
         [Route("search")]
         [HttpGet]
-        public IActionResult SearchAlbums([FromQuery] string searchString) {
+        public IEnumerable<Album> SearchAlbums([FromQuery] string searchString) {
             var albums = musicDbContext.Album.Where(album => album.Title.Contains(searchString));
-            return new JsonResult(albums);
+            return albums;
         }
 
         [HttpPost]

@@ -70,8 +70,7 @@ namespace MinderApi.Controllers
 
                 musicDbContext.SaveChanges();
                 return new JsonResult(updatedCustomer);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 return new JsonResult($"Unable to update customer/user: {e}");
             }

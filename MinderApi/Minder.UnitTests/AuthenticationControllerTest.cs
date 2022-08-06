@@ -1,28 +1,13 @@
 using MinderApi.Controllers;
 using MinderApi.Models;
 using MinderApi.Models.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Xunit;
 
 
 namespace Minder.UnitTests
 {
-    public class AuthenticationTest
-    {
-
-        public IConfiguration Configuration { get; set; }
-
-        public MusicDatabaseEFContext SetupTestDbContext()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-            Configuration = builder.Build();
-            var optionsBuilder = new DbContextOptionsBuilder<MusicDatabaseEFContext>().UseMySQL(Configuration.GetConnectionString("Credentials"));
-            MusicDatabaseEFContext musicDbContext = new MusicDatabaseEFContext(optionsBuilder.Options);
-            return musicDbContext;
-        }
-
+    public class AuthenticationControllerTest
+    {   
         [Fact]
         public void TestValidateAdmin()
         {
@@ -31,7 +16,7 @@ namespace Minder.UnitTests
                 Password = "admin"
             };
 
-            var musicDbContext = SetupTestDbContext();
+            var musicDbContext = TestSetup.SetupTestDbContext();
             AuthenticationController authController = new AuthenticationController(musicDbContext);
 
             // Act  
@@ -62,7 +47,7 @@ namespace Minder.UnitTests
                 Email = "jeppe@mail.com"
             };
 
-            var musicDbContext = SetupTestDbContext();
+            var musicDbContext = TestSetup.SetupTestDbContext();
             AuthenticationController authController = new AuthenticationController(musicDbContext);
 
             // Act  
@@ -70,6 +55,17 @@ namespace Minder.UnitTests
             bool expected = true;
 
             // Assert  
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void TestGetCustomerById()
+        {
+            var musicDbContext = TestSetup.SetupTestDbContext();
+            CustomerController customerController = new CustomerController(musicDbContext);
+            int expected = 1;
+            var actual = customerController.GetCustomerById(3).Count();
+
             Assert.Equal(expected, actual);
         }
     }

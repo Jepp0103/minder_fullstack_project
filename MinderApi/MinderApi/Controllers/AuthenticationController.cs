@@ -1,10 +1,9 @@
 ﻿using System.Data;
 using CryptSharp;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MinderApi.Models;
 using MinderApi.Models.Database;
-using Microsoft.EntityFrameworkCore;
+
 namespace MinderApi.Controllers
 {
     [Produces("application/json")]
@@ -59,9 +58,14 @@ namespace MinderApi.Controllers
         }
 
         [HttpPut("updateadmin")]
-        public void UpdateAdminPassword(int id, [FromBody] Admin adminModel)
+        public IActionResult UpdateAdminPassword([FromBody] Admin adminModel)
         {
-        }
+            System.Diagnostics.Debug.WriteLine(adminModel.Password);
+            Admin adminToUpdate = musicDbContext.Admin.First();
+            adminToUpdate.Password = Crypter.Blowfish.Crypt(adminModel.Password);
+            musicDbContext.SaveChanges();
 
+            return new JsonResult(adminToUpdate);
+        }
     }
 }

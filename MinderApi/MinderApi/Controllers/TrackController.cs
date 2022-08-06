@@ -33,12 +33,13 @@ namespace MinderApi.Controllers
 
         [Route("{trackId}")]
         [HttpGet]
-        public JsonResult GetArtistById(int trackId)
+        public JsonResult GetTrackById(int trackId)
         {
             string query = @"SELECT * FROM `track`
                              WHERE `TrackId` = @TrackId;";
-            var artistTable = musicDatabase.SelectSQLQueryById(query, "@TrackId", trackId);
-            return new JsonResult(artistTable);
+            var trackTable = musicDatabase.SelectSQLQueryById(query, "@TrackId", trackId);
+
+            return new JsonResult(trackTable);
         }
 
         [Route("search")]
