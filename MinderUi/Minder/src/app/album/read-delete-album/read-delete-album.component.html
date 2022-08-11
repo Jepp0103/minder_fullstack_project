@@ -1,0 +1,32 @@
+<section class="upperSection">
+  <app-create-update-album #createUpdateAlbum>
+  </app-create-update-album>
+  <div>
+    <input type="text" id="searchAlbumsInput" class="searchInput" placeholder="Search for albums">
+  </div>
+  <div>
+    <button type="submit" class="searchBtn" (click)="searchAlbums()">Search</button>
+  </div>
+</section>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Artist</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let album of Albums">
+        <td>{{album.Title}}</td>
+        <td>{{album.ArtistName}}</td>
+        <td>
+          <Button type="button" (click)="createUpdateAlbum.editClick(album.AlbumId)" class="editBtns">
+            Edit
+          </Button>
+          <Button type="button" (click)="deleteAlbum(album.AlbumId)" class="delBtns">
+            Delete
+          </Button>
+        </td>
+    </tr>
+  </tbody>
+</table>

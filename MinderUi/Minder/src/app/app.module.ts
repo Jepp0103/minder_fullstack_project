@@ -11,8 +11,13 @@ import { CreateUpdateTrackComponent } from './track/create-update-track/create-u
 import { ArtistComponent } from './artist/artist.component';
 import { ReadDeleteArtistComponent } from './artist/read-delete-artist/read-delete-artist.component';
 import { CreateUpdateArtistComponent } from './artist/create-update-artist/create-update-artist.component';
-import { ArtistApiService } from './api_services/artist-api.service';
-import { TrackApiService } from './api_services/track-api.service';
+import { ArtistApiService } from './api-services/artist-api.service';
+import { TrackApiService } from './api-services/track-api.service';
+import { AlbumApiService } from './api-services/album-api.service';
+import { AuthenticationApiService } from './api-services/authentication-api.service';
+import { AlbumComponent } from './album/album.component';
+import { ReadDeleteAlbumComponent } from './album/read-delete-album/read-delete-album.component';
+import { CreateUpdateAlbumComponent } from './album/create-update-album/create-update-album.component';
 
 
 @NgModule({
@@ -23,7 +28,10 @@ import { TrackApiService } from './api_services/track-api.service';
     CreateUpdateTrackComponent,
     ArtistComponent,
     ReadDeleteArtistComponent,
-    CreateUpdateArtistComponent
+    CreateUpdateArtistComponent,
+    AlbumComponent,
+    ReadDeleteAlbumComponent,
+    CreateUpdateAlbumComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +41,7 @@ import { TrackApiService } from './api_services/track-api.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ArtistApiService, TrackApiService],
+  providers: [ArtistApiService, TrackApiService, AlbumApiService, AuthenticationApiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

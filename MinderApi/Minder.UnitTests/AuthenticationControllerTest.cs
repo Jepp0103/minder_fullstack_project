@@ -1,6 +1,5 @@
 using MinderApi.Controllers;
 using MinderApi.Models;
-using MinderApi.Models.Database;
 using Xunit;
 
 
@@ -13,14 +12,14 @@ namespace Minder.UnitTests
         {
             Admin admin = new Admin()
             {
-                Password = "admin"
+                Password = "Jeppe1234"
             };
 
             var musicDbContext = TestSetup.SetupTestDbContext();
             AuthenticationController authController = new AuthenticationController(musicDbContext);
 
             // Act  
-            bool actual = authController.ValidateAdmin(admin);
+            bool actual = authController.ValidateAdmin(admin, 1);
             bool expected = true;
 
             // Assert  

@@ -20,8 +20,14 @@ namespace MinderApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Album> GetAlbums() {
-            var albums = musicDbContext.Album.ToList();
+        public IEnumerable<Object> GetAlbums() {
+            var albums = (musicDbContext.Album
+                        .Join(musicDbContext.Artist,
+                        album => album.ArtistId,
+                        artist => artist.ArtistId,
+                        (album, artist) => new { album.AlbumId, album.Title, ArtistName = artist.Name }))
+                        .OrderBy(album => album.Title);
+
             return albums;
         }
 
@@ -29,15 +35,18 @@ namespace MinderApi.Controllers
         [HttpGet]
         public IEnumerable<Album> GetAlbumById(int albumId) {
             var album = musicDbContext.Album.Where(album => album.AlbumId == albumId);
-            System.Diagnostics.Debug.WriteLine("album" + album);
-
             return album;
         }
 
         [Route("search")]
         [HttpGet]
-        public IEnumerable<Album> SearchAlbums([FromQuery] string searchString) {
-            var albums = musicDbContext.Album.Where(album => album.Title.Contains(searchString));
+        public IEnumerable<Object> SearchAlbums([FromQuery] string searchString) {
+            var albums = (from album in musicDbContext.Album
+                          join artist in musicDbContext.Artist
+                          on album.ArtistId equals artist.ArtistId
+                          where album.ArtistId == artist.ArtistId && album.Title.Contains(searchString)
+                          select new { album.AlbumId, album.Title, ArtistName = artist.Name });
+
             return albums;
         }
 

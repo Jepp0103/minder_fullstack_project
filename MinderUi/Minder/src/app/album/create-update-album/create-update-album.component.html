@@ -1,0 +1,26 @@
+<section>
+  <button type="button" (click)="addClick()"
+    data-backdrop="static" class="addBtn" data-keyboard="false"
+  >Add album
+  </button>
+</section>
+<section>
+  <div [ngClass]="modalStyle">
+    <div class="modal-content">
+      <section>
+          <h3></h3>
+      </section>
+      <section>
+          <label class="modalLabel" for="titleInp">Title</label>
+          <input class="modalInput" id="titleInp" type="text" [(ngModel)]="Title" required placeholder="Title">
+          <label class="modalLabel" for="artInp">Artist id</label>
+          <input class="modalInput" id="artInp" type="text" [(ngModel)]="ArtistId" required placeholder="Artist id">
+      </section>
+      <section id="albumModalFooter">
+        <button *ngIf="isCreating" (click)="addAlbum()" class="modalBtn">Add</button>
+        <button *ngIf="isEditing" (click)="editAlbum()" class="modalBtn">Edit</button>
+        <button id="closeArtistModalBtn" (click)="closeClick()" class="modalBtn">Cancel</button>
+      </section>
+    </div>
+  </div>
+</section>

@@ -20,7 +20,7 @@ namespace MinderApi.Controllers
 
         [HttpGet]
         [Route("admin")]
-        public IEnumerable<Admin> GetAdminCredentials()
+        public IEnumerable<Admin> GetAdminCredentials(int adminId)
         {
             var adminUser = from admin in musicDbContext.Admin
                             select admin;
@@ -47,21 +47,43 @@ namespace MinderApi.Controllers
 
 
         [HttpPost]
-        [Route("adminvalidation")]
-        public bool ValidateAdmin([FromBody] Admin adminModel)
+        [Route("adminvalidation/{adminId}")]
+        public bool ValidateAdmin([FromBody] Admin adminModel, int adminId)
         {
             string storedHashedPassword = (from admin in musicDbContext.Admin
-                                           select new { admin.Password }).FirstOrDefault().Password.ToString();
+                                            where admin.AdminId == adminId
+                                            select admin.Password).FirstOrDefault().ToString();
 
             bool isPasswordValid = Crypter.CheckPassword(adminModel.Password, storedHashedPassword);
             return isPasswordValid;
         }
 
-        [HttpPut("updateadmin")]
-        public IActionResult UpdateAdminPassword([FromBody] Admin adminModel)
+        [HttpPost]
+        [Route("admin")]
+        public IActionResult AddAdmin([FromBody] Admin newAdmin)
         {
-            System.Diagnostics.Debug.WriteLine(adminModel.Password);
-            Admin adminToUpdate = musicDbContext.Admin.First();
+            try
+            {
+                newAdmin.Password = Crypter.Blowfish.Crypt(newAdmin.Password);
+                musicDbContext.Admin.Add(newAdmin);
+                musicDbContext.SaveChanges();
+
+                var insertedAdmin = musicDbContext.Admin.Where(admin => admin.AdminId == newAdmin.AdminId);
+                return new JsonResult(insertedAdmin);
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e);
+            }
+        }
+
+        [HttpPut("admin/{adminId}")]
+        public IActionResult UpdateAdminPassword([FromBody] Admin adminModel, int adminId)
+        {
+            var adminToUpdate = (from admin in musicDbContext.Admin
+                                 where admin.AdminId == adminId
+                                 select admin).FirstOrDefault();
+
             adminToUpdate.Password = Crypter.Blowfish.Crypt(adminModel.Password);
             musicDbContext.SaveChanges();
 

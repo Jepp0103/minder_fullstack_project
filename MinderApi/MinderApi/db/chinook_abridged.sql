@@ -31,8 +31,9 @@ USE `chinook_abridged`;
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
+  `AdminId`int(11) NOT NULL AUTO_INCREMENT,
   `Password` varchar(255) NOT NULL,
-  UNIQUE KEY `IFK_AdminPassword` (`Password`)
+  PRIMARY KEY (`AdminId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

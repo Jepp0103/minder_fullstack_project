@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -28,7 +27,6 @@ export class TrackApiService {
   }
 
   updateTrack(id:number, body:any) {
-    console.log("body here:", body)
     return this.http.put(this.APIUrl + '/tracks/' + id, body);
   }
 

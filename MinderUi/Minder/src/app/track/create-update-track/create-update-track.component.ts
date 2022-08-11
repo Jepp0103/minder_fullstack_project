@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TrackApiService } from 'src/app/api_services/track-api.service';
+import { TrackApiService } from 'src/app/api-services/track-api.service';
 
 @Component({
   selector: 'app-create-update-track',
@@ -119,16 +119,17 @@ export class CreateUpdateTrackComponent implements OnInit {
     const composer = Object.values(data)[0].Composer;
     const milliseconds = Object.values(data)[0].Milliseconds;
     const bytes = Object.values(data)[0].Bytes;
-    const trackId = Object.values(data)[0].UnitPrice;
+    const unitPrice = Object.values(data)[0].UnitPrice;
+    const trackId = Object.values(data)[0].TrackId;
     alert("Track " + command + " with the following information:\n"
      + "Name: " + name + ", Id: " + trackId + "\n"
      + "Album id: " + albumId + ", Media type id: " + mediaTypeId + "\n"
      + "Genre id: " + genreId + ", Composer: " + composer + "\n"
      + "Milliseconds: " + milliseconds + ", Bytes: " + bytes + "\n"
+     + ", Unit price: " + unitPrice + "\n"
     );
 
      this.modalStyle = this.modalNone;
-     this.Name = "";
      this.isCreating = false;
      this.isEditing = false;
      window.location.reload();

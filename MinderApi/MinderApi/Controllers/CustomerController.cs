@@ -52,21 +52,22 @@ namespace MinderApi.Controllers
         {
             try
             {
-                var updatedCustomer = from customer in musicDbContext.Customer
+                var updatedCustomer = (from customer in musicDbContext.Customer
                                       where customer.CustomerId == customerId
-                                      select customer;
-                updatedCustomer.First().FirstName = customerModel.FirstName;
-                updatedCustomer.First().LastName = customerModel.LastName;
-                updatedCustomer.First().Password = Crypter.Blowfish.Crypt(customerModel.Password);
-                updatedCustomer.First().Company = customerModel.Company;
-                updatedCustomer.First().Address = customerModel.Address;
-                updatedCustomer.First().City = customerModel.City;
-                updatedCustomer.First().State = customerModel.State;
-                updatedCustomer.First().Country = customerModel.Country;
-                updatedCustomer.First().PostalCode = customerModel.PostalCode;
-                updatedCustomer.First().Phone = customerModel.Phone;
-                updatedCustomer.First().Fax = customerModel.Fax;
-                updatedCustomer.First().Email = customerModel.Email;
+                                      select customer).FirstOrDefault();
+
+                updatedCustomer.FirstName = customerModel.FirstName;
+                updatedCustomer.LastName = customerModel.LastName;
+                updatedCustomer.Password = Crypter.Blowfish.Crypt(customerModel.Password);
+                updatedCustomer.Company = customerModel.Company;
+                updatedCustomer.Address = customerModel.Address;
+                updatedCustomer.City = customerModel.City;
+                updatedCustomer.State = customerModel.State;
+                updatedCustomer.Country = customerModel.Country;
+                updatedCustomer.PostalCode = customerModel.PostalCode;
+                updatedCustomer.Phone = customerModel.Phone;
+                updatedCustomer.Fax = customerModel.Fax;
+                updatedCustomer.Email = customerModel.Email;
 
                 musicDbContext.SaveChanges();
                 return new JsonResult(updatedCustomer);

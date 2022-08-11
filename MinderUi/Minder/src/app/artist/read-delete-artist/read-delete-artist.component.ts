@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArtistApiService } from 'src/app/api_services/artist-api.service';
+import { ArtistApiService } from 'src/app/api-services/artist-api.service';
 
 @Component({
   selector: 'app-read-delete-artist',
