@@ -18,6 +18,8 @@ import { AuthenticationApiService } from './api-services/authentication-api.serv
 import { AlbumComponent } from './album/album.component';
 import { ReadDeleteAlbumComponent } from './album/read-delete-album/read-delete-album.component';
 import { CreateUpdateAlbumComponent } from './album/create-update-album/create-update-album.component';
+import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { CreateUpdateAlbumComponent } from './album/create-update-album/create-u
     CreateUpdateArtistComponent,
     AlbumComponent,
     ReadDeleteAlbumComponent,
-    CreateUpdateAlbumComponent
+    CreateUpdateAlbumComponent,
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
