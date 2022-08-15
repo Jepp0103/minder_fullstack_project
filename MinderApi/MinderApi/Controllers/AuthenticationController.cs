@@ -31,7 +31,7 @@ namespace MinderApi.Controllers
         [HttpPost]
         [Route("uservalidation")]
         public bool ValidateUser([FromBody] Customer customerModel)
-        {
+        {   
             var userToValidate = (from customer in musicDbContext.Customer
                                   where customer.Email == customerModel.Email
                                   select customer).ToList();

@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-sm" id="minderNavbar">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+        <button routerLink ="track" class="m-1 btn btn-light btn-outline-primary" Button>Tracks</button>
+    </li>
+    <li class="nav-item">
+      <button routerLink ="artist" class="m-1 btn btn-light btn-outline-primary" Button>Artists</button>
+    </li>
+    <li class="nav-item">
+      <button routerLink ="album" class="m-1 btn btn-light btn-outline-primary" Button>Albums</button>
+    </li>
+    <li class="nav-item">
+      <button (click)="logOut()" id="logoutBtn" class="m-1 btn btn-light btn-outline-danger">Logout</button>
+    </li>
+  </ul>
+</nav>

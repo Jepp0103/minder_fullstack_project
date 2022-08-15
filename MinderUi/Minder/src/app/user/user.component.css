@@ -1,0 +1,9 @@
+#signupSection {
+  display: grid;
+  grid-template-columns: 10% 25% 10% 25%;
+  margin-top: 1em;
+}
+
+#signupSection > input {
+  margin-bottom: 0.5em;
+}

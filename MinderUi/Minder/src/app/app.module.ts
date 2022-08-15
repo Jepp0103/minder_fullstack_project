@@ -20,6 +20,9 @@ import { ReadDeleteAlbumComponent } from './album/read-delete-album/read-delete-
 import { CreateUpdateAlbumComponent } from './album/create-update-album/create-update-album.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
+import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { UserComponent } from './user/user.component';
     ReadDeleteAlbumComponent,
     CreateUpdateAlbumComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
+    AdminNavbarComponent,
+    AdminLoginComponent,
+    UserNavbarComponent
   ],
   imports: [
     CommonModule,

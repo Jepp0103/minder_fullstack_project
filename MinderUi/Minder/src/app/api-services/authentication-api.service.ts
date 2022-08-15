@@ -10,27 +10,27 @@ export class AuthenticationApiService {
   readonly APIUrl = "https://localhost:7151/api";
   constructor(private http:HttpClient) { }
 
-  getAlbums():Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + '/albums');
+  validateUser(content:any):Observable<any> {
+    return this.http.post<any>(this.APIUrl + '/authentication/uservalidation', content)
   }
 
-  getAlbumById(id:number):Observable<any> {
-    return this.http.get<any>(this.APIUrl + '/albums/' + id);
+  validateAdmin(content:any):Observable<any> {
+    return this.http.post<any>(this.APIUrl + '/authentication/adminvalidation', content)
   }
 
-  searchAlbums(searchString:string):Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + '/albums/search/?searchString=' + searchString);
+  getCustomerById(id:number):Observable<any> {
+    return this.http.get<any>(this.APIUrl + '/customers/' + id);
   }
 
-  addCustomer(val:any) {
-    return this.http.post(this.APIUrl + '/customers', val);
+  addCustomer(content:any) {
+    return this.http.post(this.APIUrl + '/customers', content);
   }
 
-  updateAlbum(id:number, body:any) {
-    return this.http.put(this.APIUrl + '/albums/' + id, body);
+  updateCustomer(id:number, body:any) {
+    return this.http.put(this.APIUrl + '/customers/' + id, body);
   }
 
-  deleteAlbum(id:number) {
-    return this.http.delete(this.APIUrl + '/albums/' + id);
+  deleteCustomer(id:number) {
+    return this.http.delete(this.APIUrl + '/customers/' + id);
   }
 }

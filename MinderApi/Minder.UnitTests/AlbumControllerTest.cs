@@ -1,5 +1,8 @@
 ﻿using MinderApi.Controllers;
 using Xunit;
+using MinderApi.Models;
+using System.Text.Json;
+
 
 namespace Minder.UnitTests
 {
@@ -29,7 +32,8 @@ namespace Minder.UnitTests
 
             // Act  
             string expected = "Pure Cult: The Best Of The Cult (For Rockers, Ravers, Lovers & Sinners) [UK]";
-            var actual = albumController.SearchAlbums("Pure Cult: The ").First().Title;
+            var testObject = albumController.SearchAlbums("Pure Cult: The ").FirstOrDefault();
+            var actual = testObject.GetType().GetProperty("Title").GetValue(testObject);
 
             //Assert
             Assert.Equal(expected, actual);

@@ -89,8 +89,7 @@ namespace MinderApi.Controllers
 
                 musicDbContext.Customer.Remove(customerToDelete.First());
                 musicDbContext.SaveChanges();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 return new JsonResult($"Unable to delete customer/user: {e}");
             }

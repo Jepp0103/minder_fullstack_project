@@ -42,7 +42,7 @@ export class UserComponent implements OnInit {
 
 
   addCustomer() {
-    var content = {
+    const content = {
       FirstName: this.FirstName,
       LastName: this.LastName,
       Password: this.Password,
@@ -56,6 +56,7 @@ export class UserComponent implements OnInit {
       Fax: this.Fax,
       Email: this.Email
     };
+
     this.service.addCustomer(content).subscribe(data => {
       this.alertResponse(data, "added");
     });
@@ -76,7 +77,7 @@ export class UserComponent implements OnInit {
     const Fax = Object.values(data)[0].Fax;
     const Email = Object.values(data)[0].Email;
 
-    alert("Track " + command + " with the following information:\n"
+    alert("Customer " + command + " with the following information:\n"
      + "First name: " + FirstName + ", Id: " + CustomerId + "\n"
      + "Last name: " + LastName + ", Password: " + Password + "\n"
      + "Company: " + Company + ", Address: " + Address + "\n"

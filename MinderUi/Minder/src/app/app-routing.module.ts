@@ -6,13 +6,15 @@ import { ArtistComponent } from './artist/artist.component';
 import { AlbumComponent } from './album/album.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 const routes: Routes = [
+  {path: 'login', component:LoginComponent},
+  {path: 'adminlogin', component:AdminLoginComponent},
+  {path: 'signup', component:UserComponent},
   {path: 'track', component:TrackComponent},
   {path: 'artist', component:ArtistComponent},
   {path: 'album', component:AlbumComponent},
-  {path: 'login', component:LoginComponent},
-  {path: 'signup', component:UserComponent},
   {path: 'user', component:UserComponent}
 ];
 

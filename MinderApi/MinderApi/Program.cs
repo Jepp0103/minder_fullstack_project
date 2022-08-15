@@ -28,6 +28,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSession(options =>
+{
+    //options.Cookie.Name = ".Minder.Session";
+    options.IdleTimeout = TimeSpan.FromSeconds(1800);
+    //options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 app.UseCors(options=>options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -39,9 +46,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllers();
 
