@@ -30,19 +30,35 @@ namespace MinderApi.Controllers
 
         [HttpPost]
         [Route("uservalidation")]
-        public bool ValidateUser([FromBody] Customer customerModel)
-        {   
-            var userToValidate = (from customer in musicDbContext.Customer
+        public Dictionary<int, bool> ValidateUser([FromBody] Customer customerModel)
+        {
+            try
+            {
+                var userToValidate = (from customer in musicDbContext.Customer
                                   where customer.Email == customerModel.Email
                                   select customer).ToList();
 
             bool isPasswordValid = false;
-            if (userToValidate.Count == 1) { 
+            if (userToValidate.Count == 1) {
                 isPasswordValid = (Crypter.CheckPassword(customerModel.Password, userToValidate.FirstOrDefault().Password.ToString()));
             }
 
             bool isUserValid = isPasswordValid ? true : false;
-            return isUserValid;
+
+            var response = new Dictionary<int, bool> {
+                {  userToValidate.FirstOrDefault().CustomerId, isUserValid }
+            };
+
+            return response;
+
+            } catch (Exception e)
+            {
+                var response = new Dictionary<int, bool> {
+                    {  0, false }
+                };
+
+                return response;
+            }
         }
 
 

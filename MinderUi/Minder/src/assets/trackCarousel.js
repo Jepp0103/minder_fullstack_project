@@ -1,10 +1,11 @@
 class TrackCarousel {
 
-  constructor(element) {
-      console.log("elementa", element)
+  constructor(element, tracks) {
+      this.randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+
       this.board = element;
-      this.randomGoatLiked = /*[[${randomGoatLiked}]]*/ "";
-      this.goatUser = /*[[${goatUser}]]*/ "";
+      this.trackLiked = /*[[${trackLiked}]]*/ "";
+      this.user = /*[[${user}]]*/ "";
 
 
       // add first two cards programmatically
@@ -172,12 +173,13 @@ class TrackCarousel {
 
 
   disliked() {
-      let data = {
-          "goatDisliker": this.goatUser, //TODO - Set this to be the user.
-          "goatDisliked": this.randomGoatLiked
+      const data = {
+          "CustomerId": this.user,
+          "TrackId": this.randomTrack.TrackId
       };
+
       $.ajax({
-          url: "/api/dislikes",
+          url: "https://localhost:7151/api/dislikes",
           dataType: "text",
           type: "post",
           contentType: "application/json",
@@ -192,15 +194,12 @@ class TrackCarousel {
   }
 
   liked() {
-      // this.isFlipped = false;
-      let token = $("meta[name='_csrf']").attr("content");
       let data = {
-          "goatLiker": this.goatUser, //TODO - Set this to be the user.
-          "goatLiked": this.randomGoatLiked
+        "CustomerId": this.user,
+        "TrackId": this.randomTrack.TrackId
       };
       $.ajax({
-          url: "/api/likes",
-          headers: {"X-CSRF-TOKEN": token},
+          url: "https://localhost:7151/api/likes",
           dataType: "text",
           type: "post",
           contentType: "application/json",
@@ -215,15 +214,15 @@ class TrackCarousel {
   }
 
   push() {
-
-      // getting the participator goat
-      console.log("Randomgoatid: " +  this.randomGoatLiked);
-
       let card = document.getElementById('card');
-
       card.classList.add('card');
 
-      card.style.backgroundImage = "url('https://placegoat.com/400/400/?random=" + Math.round(Math.random()*100) + "')";
+
+      //Random track to display
+      $("#trackName").text(this.randomTrack.TrackName);
+      $("#artistName").text(this.randomTrack.ArtistName);
+      $("#albumTitle").text(this.randomTrack.AlbumTitle);
+      $("#genreName").text(this.randomTrack.GenreName);
 
       if (this.board.firstChild) {
           this.board.insertBefore(card, this.board.firstChild)

@@ -32,13 +32,13 @@ USE `chinook_abridged`;
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `AdminId`int(11) NOT NULL AUTO_INCREMENT,
-  `Password` varchar(255) NOT NULL,
+  `Username` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`AdminId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `admin` (`Password`) VALUES
-('$2a$06$MHnq9oL9bg1ieV7j5BlUuOt/mbWz1r.7hv67EFhSgarpQG.Z2mwoG');
+INSERT INTO `admin` (`Username`,`Password`) VALUES
+('admin', '$2a$06$MHnq9oL9bg1ieV7j5BlUuOt/mbWz1r.7hv67EFhSgarpQG.Z2mwoG');
 
 -- --------------------------------------------------------
 
@@ -794,6 +794,28 @@ INSERT INTO `customer` (`CustomerId`, `FirstName`, `LastName`, `Password`, `Comp
 (60, 'KEA Cust FN', 'KEA Cust LN', '$2y$10$WtD6WywiBP7qNi8yZj7gYuIhjTy1xsAwAKSEgXj/ftRZWTLjz1cpu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'keacust@mail.com');
 
 -- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `like`;
+CREATE TABLE IF NOT EXISTS `like` (
+  `LikeId` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerId` int(11) NOT NULL,
+  `TrackId` int(11) NOT NULL,
+  
+  FOREIGN KEY (`TrackId`) REFERENCES `track` (`TrackId`),
+  FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`),
+  PRIMARY KEY (`LikeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `dislike`;
+CREATE TABLE IF NOT EXISTS `dislike` (
+  `DislikeId` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerId` int(11) NOT NULL,
+  `TrackId` int(11) NOT NULL,
+  
+  FOREIGN KEY (`TrackId`) REFERENCES `track` (`TrackId`),
+  FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`),
+  PRIMARY KEY (`DislikeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `genre`
