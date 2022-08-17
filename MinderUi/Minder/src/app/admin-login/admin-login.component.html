@@ -1,6 +1,8 @@
-<section id ="adminloginSection">
+<section id ="adminLoginSection">
+  <label for="usernameInp">Username</label>
+  <input id="usernameInp" type="text" [(ngModel)]="Username" required placeholder="Username">
   <label for="passwordInp">Password</label>
   <input id="passwordInp" type="password" [(ngModel)]="Password" required placeholder="Password">
   <button (click)="loginAdmin()">Login</button>
-  <a routerLink="login">Sign in as a user</a>
+  <a routerLink="/login">Sign in as a user</a>
 </section>

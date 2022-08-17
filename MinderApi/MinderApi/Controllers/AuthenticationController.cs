@@ -47,15 +47,21 @@ namespace MinderApi.Controllers
 
 
         [HttpPost]
-        [Route("adminvalidation/{adminId}")]
-        public bool ValidateAdmin([FromBody] Admin adminModel, int adminId)
+        [Route("adminvalidation")]
+        public bool ValidateAdmin([FromBody] Admin adminModel)
         {
-            string storedHashedPassword = (from admin in musicDbContext.Admin
-                                            where admin.AdminId == adminId
-                                            select admin.Password).FirstOrDefault().ToString();
+            var adminToValidate = (from admin in musicDbContext.Admin
+                                            where admin.Username == adminModel.Username
+                                            select admin).ToList();
 
-            bool isPasswordValid = Crypter.CheckPassword(adminModel.Password, storedHashedPassword);
-            return isPasswordValid;
+            var storedPassword = adminToValidate.FirstOrDefault().Password.ToString();
+
+            if (adminToValidate.Count == 1) {
+                bool isPasswordValid = Crypter.CheckPassword(adminModel.Password, storedPassword);
+                return isPasswordValid;
+            } else {
+                return false;
+            }           
         }
 
         [HttpPost]
@@ -78,7 +84,7 @@ namespace MinderApi.Controllers
         }
 
         [HttpPut("admin/{adminId}")]
-        public IActionResult UpdateAdminPassword([FromBody] Admin adminModel, int adminId)
+        public IActionResult UpdateAdmin([FromBody] Admin adminModel, int adminId)
         {
             var adminToUpdate = (from admin in musicDbContext.Admin
                                  where admin.AdminId == adminId

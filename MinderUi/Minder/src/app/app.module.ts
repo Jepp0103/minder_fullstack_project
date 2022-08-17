@@ -23,6 +23,7 @@ import { UserComponent } from './user/user.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { UserNavbarComponent } from './user-navbar/user-navbar.component';
     UserComponent,
     AdminNavbarComponent,
     AdminLoginComponent,
-    UserNavbarComponent
+    UserNavbarComponent,
+    CarouselComponent
   ],
   imports: [
     CommonModule,

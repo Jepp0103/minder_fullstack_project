@@ -10,27 +10,37 @@ import { Router } from '@angular/router';
 })
 export class AdminLoginComponent  {
 
+  Username:string;
   Password:string;
   router:Router;
 
   constructor(private service: AuthenticationApiService, route:Router) {
+    this.Username = "";
     this.Password = "";
     this.router = route;
+    this.checkSignIn();
+  }
+
+  checkSignIn() {
+    if (sessionStorage.getItem('SessionAdmin')) {
+      this.router.navigate(['']);
+    }
   }
 
   loginAdmin() {
     const content = {
+      Username: this.Username,
       Password: this.Password
     }
 
     this.service.validateAdmin(content).subscribe(data => {
       if(data === true) {
         sessionStorage.setItem('SessionAdmin', "true");
-        this.router.navigate(['']);
+        window.location.reload();
       } else {
         alert("User does not exist.");
       }
-    })
+    });
   }
 
 }

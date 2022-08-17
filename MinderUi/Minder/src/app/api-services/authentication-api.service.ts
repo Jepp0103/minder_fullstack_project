@@ -26,8 +26,8 @@ export class AuthenticationApiService {
     return this.http.post(this.APIUrl + '/customers', content);
   }
 
-  updateCustomer(id:number, body:any) {
-    return this.http.put(this.APIUrl + '/customers/' + id, body);
+  updateCustomer(id:number, content:any) {
+    return this.http.put(this.APIUrl + '/customers/' + id, content);
   }
 
   deleteCustomer(id:number) {

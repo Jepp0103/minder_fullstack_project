@@ -1,0 +1,8 @@
+#adminLoginSection{
+  width: 30%;
+}
+
+#adminLoginSection > button {
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+}

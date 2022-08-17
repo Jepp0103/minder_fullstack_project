@@ -33,12 +33,9 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `AdminId`int(11) NOT NULL AUTO_INCREMENT,
   `Password` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`AdminId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `admin`
---
 
 INSERT INTO `admin` (`Password`) VALUES
 ('$2a$06$MHnq9oL9bg1ieV7j5BlUuOt/mbWz1r.7hv67EFhSgarpQG.Z2mwoG');

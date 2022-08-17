@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationApiService } from '../api-services/authentication-api.service';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   Email:string;
   Password:string;
@@ -17,9 +17,13 @@ export class LoginComponent implements OnInit {
     this.Email = "";
     this.Password = "";
     this.router = route;
+    this.checkSignIn();
    }
 
-  ngOnInit(): void {
+  checkSignIn() {
+    if (sessionStorage.getItem('SessionKeyEmail')) {
+      this.router.navigate(['']);
+    }
   }
 
   loginCustomer() {
@@ -32,12 +36,10 @@ export class LoginComponent implements OnInit {
       if(data === true) {
         sessionStorage.setItem('SessionKeyEmail', this.Email);
         this.router.navigate(['']);
+        window.location.reload();
       } else {
         alert("User does not exist.");
       }
     });
   }
-
-
-
 }

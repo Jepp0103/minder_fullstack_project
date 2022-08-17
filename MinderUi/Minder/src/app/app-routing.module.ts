@@ -7,8 +7,10 @@ import { AlbumComponent } from './album/album.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
+  // {path: '', component:AppComponent},
   {path: 'login', component:LoginComponent},
   {path: 'adminlogin', component:AdminLoginComponent},
   {path: 'signup', component:UserComponent},

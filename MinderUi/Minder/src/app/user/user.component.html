@@ -23,5 +23,8 @@
   <input class="signupInput" id="faxInp" type="text" [(ngModel)]="Fax" required placeholder="Fax">
   <label class="signupLabel" for="emailInp">Email</label>
   <input class="signupInput" id="emailInp" type="text" [(ngModel)]="Email" required placeholder="Email">
-  <button (click)="addCustomer()">Create user</button>
+  <div>
+    <button (click)="addCustomer()">Create user</button>
+    <button routerLink="/login">Cancel</button>
+  </div>
 </section>

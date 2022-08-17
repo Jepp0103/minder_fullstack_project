@@ -19,7 +19,7 @@ namespace Minder.UnitTests
             AuthenticationController authController = new AuthenticationController(musicDbContext);
 
             // Act  
-            bool actual = authController.ValidateAdmin(admin, 1);
+            bool actual = authController.ValidateAdmin(admin);
             bool expected = true;
 
             // Assert  
