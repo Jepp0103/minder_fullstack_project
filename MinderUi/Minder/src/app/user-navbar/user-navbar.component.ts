@@ -5,13 +5,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './user-navbar.component.html',
   styleUrls: ['./user-navbar.component.css']
 })
-export class UserNavbarComponent implements OnInit {
 
-  constructor() { }
+export class UserNavbarComponent implements OnInit {
+  SessionName:string;
+
+  constructor() {
+    this.SessionName = String(sessionStorage.getItem('SessionKeyEmail'));
+  }
 
   ngOnInit(): void {
   }
-
 
   logOut() {
     window.sessionStorage.clear();

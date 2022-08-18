@@ -33,8 +33,12 @@ export class LoginComponent {
     }
 
     this.service.validateUser(content).subscribe(data => {
-      if(data === true) {
+      const isValid = Object.values(data)[0];
+      const customerId = String(Object.keys(data)[0]);
+
+      if (isValid) {
         sessionStorage.setItem('SessionKeyEmail', this.Email);
+        sessionStorage.setItem('SessionId', customerId);
         this.router.navigate(['']);
         window.location.reload();
       } else {

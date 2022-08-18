@@ -1,12 +1,11 @@
 class TrackCarousel {
 
-  constructor(element, tracks) {
+  constructor(element, tracks, userId) {
       this.randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
 
       this.board = element;
-      this.trackLiked = /*[[${trackLiked}]]*/ "";
-      this.user = /*[[${user}]]*/ "";
-
+      // this.trackLiked = /*[[${trackLiked}]]*/ "";
+      this.userId = userId;
 
       // add first two cards programmatically
       this.push();
@@ -130,7 +129,6 @@ class TrackCarousel {
 
           // check threshold
           if (propX > 0.25 && e.direction == Hammer.DIRECTION_RIGHT) {
-              console.log("To the right....  ");
               this.liked();
               location.reload();
               successful = true;
@@ -138,7 +136,6 @@ class TrackCarousel {
               posX = this.board.clientWidth
 
           } else if (propX < -0.25 && e.direction == Hammer.DIRECTION_LEFT) {
-              console.log("To the left....  ");
               this.disliked();
               location.reload();
               successful = true;
@@ -174,7 +171,7 @@ class TrackCarousel {
 
   disliked() {
       const data = {
-          "CustomerId": this.user,
+          "CustomerId": this.userId,
           "TrackId": this.randomTrack.TrackId
       };
 
@@ -185,7 +182,7 @@ class TrackCarousel {
           contentType: "application/json",
           data: JSON.stringify(data),
           success: function() {
-              console.log("Disliking worked")
+            console.log(data);
           },
           error: function() {
               console.log("Disliking didn't work...")
@@ -195,9 +192,10 @@ class TrackCarousel {
 
   liked() {
       let data = {
-        "CustomerId": this.user,
+        "CustomerId": this.userId,
         "TrackId": this.randomTrack.TrackId
       };
+
       $.ajax({
           url: "https://localhost:7151/api/likes",
           dataType: "text",
@@ -205,7 +203,7 @@ class TrackCarousel {
           contentType: "application/json",
           data: JSON.stringify(data),
           success: function() {
-              console.log("Liking worked")
+              console.log(data);
           },
           error: function() {
               console.log("Liking didn't work...")
@@ -216,7 +214,6 @@ class TrackCarousel {
   push() {
       let card = document.getElementById('card');
       card.classList.add('card');
-
 
       //Random track to display
       $("#trackName").text(this.randomTrack.TrackName);

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackApiService } from 'src/app/api-services/track-api.service';
-import { AuthenticationApiService } from 'src/app/api-services/authentication-api.service';
 
 declare var TrackCarousel: any;
 
@@ -12,14 +11,14 @@ declare var TrackCarousel: any;
 export class CarouselComponent implements OnInit {
 
   Tracks:any=[];
-  constructor(private trackService:TrackApiService, private authenticationService:AuthenticationApiService) { }
+  constructor(private trackService:TrackApiService) { }
 
   ngOnInit(): void {
-    // this.authenticationService.
+    const userId = sessionStorage.getItem('SessionId');
     this.trackService.getTracks().subscribe(data => {
       this.Tracks = data;
       let board = document.querySelector('#board');
-      new TrackCarousel(board, this.Tracks);
+      new TrackCarousel(board, this.Tracks, userId);
     });
   }
 }

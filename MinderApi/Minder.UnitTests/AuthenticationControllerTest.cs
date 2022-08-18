@@ -10,9 +10,11 @@ namespace Minder.UnitTests
         [Fact]
         public void TestValidateAdmin()
         {
+            //Arrange
             Admin admin = new Admin()
             {
-                Password = "Jeppe1234"
+               Username = "Jeppend",
+               Password = "Jeppe1234"
             };
 
             var musicDbContext = TestSetup.SetupTestDbContext();
@@ -50,8 +52,13 @@ namespace Minder.UnitTests
             AuthenticationController authController = new AuthenticationController(musicDbContext);
 
             // Act  
-            bool actual = authController.ValidateUser(customer);
-            bool expected = true;
+            Dictionary<int, bool> expected = new Dictionary<int, bool>
+            {
+                {69, true}
+            };
+
+            var actual = authController.ValidateUser(customer);
+        
 
             // Assert  
             Assert.Equal(expected, actual);
@@ -60,11 +67,15 @@ namespace Minder.UnitTests
         [Fact]
         public void TestGetCustomerById()
         {
+            //Arrange
             var musicDbContext = TestSetup.SetupTestDbContext();
             CustomerController customerController = new CustomerController(musicDbContext);
+
+            //Act
             int expected = 1;
             var actual = customerController.GetCustomerById(3).Count();
 
+            //Assert
             Assert.Equal(expected, actual);
         }
     }

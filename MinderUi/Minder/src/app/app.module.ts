@@ -24,6 +24,7 @@ import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { LikedTracksComponent } from './track/liked-tracks/liked-tracks.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { CarouselComponent } from './carousel/carousel.component';
     AdminNavbarComponent,
     AdminLoginComponent,
     UserNavbarComponent,
-    CarouselComponent
+    CarouselComponent,
+    LikedTracksComponent
   ],
   imports: [
     CommonModule,

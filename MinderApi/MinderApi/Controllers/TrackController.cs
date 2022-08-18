@@ -31,6 +31,26 @@ namespace MinderApi.Controllers
             return new JsonResult(trackTable);
         }
 
+        [HttpGet]
+        [Route("likes/{customerId}")]
+        public JsonResult GetLikedTracksByUser(int customerId)
+        {
+            string query = @"   
+                            SELECT t.`TrackId`, t.`Name`  as `TrackName`, ar.`Name` as `ArtistName`, al.`Title` as `AlbumTitle`, 
+                            g.`Name` as `GenreName`, t.`Composer`, t.`Milliseconds`, t.`UnitPrice`, t.`Bytes` FROM `track` t
+                            INNER JOIN `album` al ON t.`AlbumId` = al.`AlbumId`
+                            INNER JOIN `artist`ar ON al.`ArtistId` = ar.`ArtistId`
+                            INNER JOIN `genre` g ON t.`GenreId` = g.`GenreId`
+                            INNER JOIN `like` l ON t.`TrackId` = l.`TrackId`
+                            INNER JOIN `customer` c ON c.`CustomerId` = l.`CustomerId`
+                            WHERE c.`CustomerId` = @CustomerId
+                            ORDER BY `TrackName`; ";
+
+            var trackTable = musicDatabase.SelectSQLQueryById(query, "@CustomerId", customerId);
+
+            return new JsonResult(trackTable);
+        }
+
         [Route("{trackId}")]
         [HttpGet]
         public JsonResult GetTrackById(int trackId)
