@@ -1,1 +1,28 @@
-<p>liked-tracks works!</p>
+<section>
+  <h3>All liked tracks by user</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Genre</th>
+        <th>Composer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let track of LikedTracks">
+          <td>{{track.TrackName}}</td>
+          <td>{{track.ArtistName}}</td>
+          <td>{{track.AlbumTitle}}</td>
+          <td>{{track.GenreName}}</td>
+          <td>{{track.Composer}}</td>
+          <td>
+            <Button type="button" (click)="deleteLike(track.LikeId)" class="delBtns">
+              Delete
+            </Button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

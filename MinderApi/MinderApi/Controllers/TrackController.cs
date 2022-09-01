@@ -33,10 +33,10 @@ namespace MinderApi.Controllers
 
         [HttpGet]
         [Route("likes/{customerId}")]
-        public JsonResult GetLikedTracksByUser(int customerId)
+        public JsonResult GetLikedTracksByUserId(int customerId)
         {
             string query = @"   
-                            SELECT t.`TrackId`, t.`Name`  as `TrackName`, ar.`Name` as `ArtistName`, al.`Title` as `AlbumTitle`, 
+                            SELECT l.`LikeId`, t.`TrackId`, t.`Name`  as `TrackName`, ar.`Name` as `ArtistName`, al.`Title` as `AlbumTitle`, 
                             g.`Name` as `GenreName`, t.`Composer`, t.`Milliseconds`, t.`UnitPrice`, t.`Bytes` FROM `track` t
                             INNER JOIN `album` al ON t.`AlbumId` = al.`AlbumId`
                             INNER JOIN `artist`ar ON al.`ArtistId` = ar.`ArtistId`

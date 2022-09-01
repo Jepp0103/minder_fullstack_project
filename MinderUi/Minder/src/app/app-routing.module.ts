@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { LikedTracksComponent } from './track/liked-tracks/liked-tracks.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MatchComponent } from './match/match.component';
 
 const routes: Routes = [
   {path: 'login', component:LoginComponent},
@@ -17,7 +20,10 @@ const routes: Routes = [
   {path: 'likedtracks', component:LikedTracksComponent},
   {path: 'artist', component:ArtistComponent},
   {path: 'album', component:AlbumComponent},
-  {path: 'user', component:UserComponent}
+  {path: 'user', component:UserComponent},
+  {path: 'likecarousel', component:CarouselComponent},
+  {path: 'userprofile', component:UserProfileComponent},
+  {path: 'matches', component:MatchComponent}
 ];
 
 @NgModule({

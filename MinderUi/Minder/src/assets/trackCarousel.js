@@ -4,7 +4,6 @@ class TrackCarousel {
       this.randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
 
       this.board = element;
-      // this.trackLiked = /*[[${trackLiked}]]*/ "";
       this.userId = userId;
 
       // add first two cards programmatically

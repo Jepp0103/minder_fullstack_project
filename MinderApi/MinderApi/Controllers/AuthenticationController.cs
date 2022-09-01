@@ -35,21 +35,21 @@ namespace MinderApi.Controllers
             try
             {
                 var userToValidate = (from customer in musicDbContext.Customer
-                                  where customer.Email == customerModel.Email
-                                  select customer).ToList();
+                                      where customer.Email == customerModel.Email
+                                      select customer).ToList();
 
-            bool isPasswordValid = false;
-            if (userToValidate.Count == 1) {
-                isPasswordValid = (Crypter.CheckPassword(customerModel.Password, userToValidate.FirstOrDefault().Password.ToString()));
-            }
+                bool isPasswordValid = false;
+                if (userToValidate.Count == 1) {
+                    isPasswordValid = (Crypter.CheckPassword(customerModel.Password, userToValidate.FirstOrDefault().Password.ToString()));
+                }
 
-            bool isUserValid = isPasswordValid ? true : false;
+                bool isUserValid = isPasswordValid ? true : false;
 
-            var response = new Dictionary<int, bool> {
-                {  userToValidate.FirstOrDefault().CustomerId, isUserValid }
-            };
+                var response = new Dictionary<int, bool> {
+                    {  userToValidate.FirstOrDefault().CustomerId, isUserValid }
+                };
 
-            return response;
+                return response;
 
             } catch (Exception e)
             {
@@ -64,20 +64,23 @@ namespace MinderApi.Controllers
 
         [HttpPost]
         [Route("adminvalidation")]
-        public bool ValidateAdmin([FromBody] Admin adminModel)
-        {
-            var adminToValidate = (from admin in musicDbContext.Admin
-                                            where admin.Username == adminModel.Username
-                                            select admin).ToList();
+        public bool ValidateAdmin([FromBody] Admin adminModel) {
+            try {
+                var adminToValidate = (from admin in musicDbContext.Admin
+                                       where admin.Username == adminModel.Username
+                                       select admin).ToList();
 
-            var storedPassword = adminToValidate.FirstOrDefault().Password.ToString();
+                var storedPassword = adminToValidate.FirstOrDefault().Password.ToString();
 
-            if (adminToValidate.Count == 1) {
-                bool isPasswordValid = Crypter.CheckPassword(adminModel.Password, storedPassword);
-                return isPasswordValid;
-            } else {
+                if (adminToValidate.Count == 1) {
+                    bool isPasswordValid = Crypter.CheckPassword(adminModel.Password, storedPassword);
+                    return isPasswordValid;
+                } else {
+                    return false;
+                }
+            } catch (Exception e) {
                 return false;
-            }           
+            }
         }
 
         [HttpPost]

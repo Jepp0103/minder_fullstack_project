@@ -25,6 +25,8 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { LikedTracksComponent } from './track/liked-tracks/liked-tracks.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MatchComponent } from './match/match.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { LikedTracksComponent } from './track/liked-tracks/liked-tracks.componen
     AdminLoginComponent,
     UserNavbarComponent,
     CarouselComponent,
-    LikedTracksComponent
+    LikedTracksComponent,
+    UserProfileComponent,
+    MatchComponent
   ],
   imports: [
     CommonModule,

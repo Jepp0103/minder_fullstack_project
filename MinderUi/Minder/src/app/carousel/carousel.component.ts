@@ -11,7 +11,9 @@ declare var TrackCarousel: any;
 export class CarouselComponent implements OnInit {
 
   Tracks:any=[];
-  constructor(private trackService:TrackApiService) { }
+
+  constructor(private trackService:TrackApiService) {
+  }
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('SessionId');
@@ -20,5 +22,6 @@ export class CarouselComponent implements OnInit {
       let board = document.querySelector('#board');
       new TrackCarousel(board, this.Tracks, userId);
     });
+
   }
 }

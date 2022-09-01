@@ -38,6 +38,7 @@ export class AdminLoginComponent  {
         sessionStorage.setItem('SessionAdmin', "true");
         window.location.reload();
       } else {
+
         alert("User does not exist.");
       }
     });

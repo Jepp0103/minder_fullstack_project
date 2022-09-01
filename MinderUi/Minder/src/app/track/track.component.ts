@@ -13,5 +13,4 @@ export class TrackComponent   {
       router.navigate(['/login']);
     }
   }
-
 }

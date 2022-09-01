@@ -12,5 +12,5 @@
   <app-admin-navbar *ngIf="isAdmin"></app-admin-navbar>
   <app-user-navbar *ngIf="isUser"></app-user-navbar>
   <router-outlet></router-outlet>
-  <app-carousel *ngIf="isUser"></app-carousel>
+  <app-carousel *ngIf="isUser && onCarousel"></app-carousel>
 </div>

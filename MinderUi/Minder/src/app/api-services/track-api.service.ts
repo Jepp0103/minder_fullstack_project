@@ -14,6 +14,10 @@ export class TrackApiService {
     return this.http.get<any>(this.APIUrl + '/tracks');
   }
 
+  getLikedTracksById(id:number):Observable<any[]> {
+    return this.http.get<any>(this.APIUrl + '/tracks/likes/' + id)
+  }
+
   getTrackById(id:number):Observable<any> {
     return this.http.get<any>(this.APIUrl + '/tracks/' + id);
   }
@@ -32,5 +36,9 @@ export class TrackApiService {
 
   deleteTrack(id:number) {
     return this.http.delete(this.APIUrl + '/tracks/' + id);
+  }
+
+  deleteLike(id:number) {
+    return this.http.delete(this.APIUrl + '/likes/' + id);
   }
 }

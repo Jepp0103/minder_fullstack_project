@@ -52,7 +52,7 @@
 
 #board {
   width: 100%;
-  height: 25em;
+  height: 50em;
   position: relative;
   overflow: hidden;
 }
