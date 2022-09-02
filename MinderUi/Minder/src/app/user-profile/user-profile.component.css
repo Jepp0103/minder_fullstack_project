@@ -1,0 +1,24 @@
+#userSection {
+  display: grid;
+  grid-template-columns: 20% 25% 20% 25%;
+  margin-top: 1em;
+  margin-left: 10%;
+}
+
+h3 {
+  text-align: center;
+  font-weight: bold;
+}
+
+#userSection > input {
+  margin-bottom: 0.5em;
+}
+
+#userSection > div {
+  display: grid;
+  grid-template-columns: 200% 200%;
+}
+
+#userSection > div > button {
+  margin-right: 1em;
+}

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationApiService } from '../api-services/authentication-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
 
   FirstName:string;
   LastName:string;
@@ -20,9 +21,11 @@ export class UserComponent implements OnInit {
   Phone:string;
   Fax:string;
   Email:string;
+  router:Router;
 
 
-  constructor(private service:AuthenticationApiService) {
+  constructor(private service:AuthenticationApiService, route:Router) {
+    this.router = route;
     this.FirstName = "";
     this.LastName = "";
     this.Password = "";
@@ -36,10 +39,6 @@ export class UserComponent implements OnInit {
     this.Fax = "";
     this.Email = "";
   }
-
-  ngOnInit(): void {
-  }
-
 
   addCustomer() {
     const content = {
@@ -87,6 +86,6 @@ export class UserComponent implements OnInit {
      + "Fax: " + Fax + ", Email: " + Email + "\n"
     );
 
-     window.location.reload();
+    this.router.navigate(['/login']);
   }
 }

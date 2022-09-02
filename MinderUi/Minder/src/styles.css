@@ -1,8 +1,13 @@
+html, body {
+  height: 100%;
+}
+
 /* You can add global styles to this file, and also import other style files */
 .upperSection {
   display: grid;
   grid-template-columns: 20% 25% 15%;
 }
+
 
 .delBtns, .editBtns {
   margin: 0.2em;
@@ -36,6 +41,7 @@ input {
 table {
   margin-top: 1em;
   width: 100%;
+  background: ghostwhite;
 }
 
 #minderNavbar {

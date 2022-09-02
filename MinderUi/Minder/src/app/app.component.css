@@ -1,5 +1,26 @@
 a:link { text-decoration: none; }
 
 .container {
+  font-family: cursive;
+
+  height: 100%;
   max-width: 100%;
+  padding-top: 3%;
+  background: lightskyblue;;
+}
+
+#titleSection {
+  text-align: center;
+}
+
+#titleSection > h1 {
+  font-size: xxx-large;
+}
+
+#titleSection > h1 > a {
+  color: black;
+}
+
+h1 {
+  font-weight: bold;
 }

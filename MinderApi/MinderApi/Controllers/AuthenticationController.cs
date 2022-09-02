@@ -53,7 +53,7 @@ namespace MinderApi.Controllers
 
             } catch (Exception e)
             {
-                var response = new Dictionary<int, bool> {
+                var response = new Dictionary<int, bool> { 
                     {  0, false }
                 };
 

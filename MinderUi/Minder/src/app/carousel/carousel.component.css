@@ -75,3 +75,8 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+h1 {
+  font-weight: bold;
+  font-size: 4em;
+}
