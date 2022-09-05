@@ -20,9 +20,6 @@ export class AppComponent implements OnInit {
     this.isUser = false;
     this.notSignedIn = true;
     this.onCarousel = false;
-
-
-
   }
 
   ngOnInit(): void {
@@ -35,7 +32,7 @@ export class AppComponent implements OnInit {
     if (sessionStorage.getItem('SessionKeyEmail')) {
       this.notSignedIn = false;
       this.isUser = true;
-      this.onCarousel = this.route.url === '/' ? true : false; //If url is / then carousel is enabled.
+      this.onCarousel = this.route.url === '/' ? true : false; //If url is "/" then carousel is enabled.
     } else if (sessionStorage.getItem('SessionAdmin')) {
       this.notSignedIn = false;
       this.isAdmin = true;

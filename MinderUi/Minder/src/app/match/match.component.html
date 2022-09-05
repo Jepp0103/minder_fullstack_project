@@ -1,1 +1,21 @@
-<p>match works!</p>
+<h1>Matches with other users</h1>
+
+<section *ngFor="let match of Matches">
+  <h3>{{match.FirstName}} {{match.LastName}}</h3>
+  <table >
+    <thead>
+      <tr>
+        <th>Track</th>
+        <th>Genre</th>
+        <th>Composer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td>{{match.TrackName}}</td>
+          <td>{{match.GenreName}}</td>
+          <td>{{match.TrackComposer}}</td>
+       </tr>
+    </tbody>
+  </table>
+</section>

@@ -35,5 +35,4 @@ export class ReadDeleteTrackComponent implements OnInit {
       window.location.reload();
     });
   }
-
 }

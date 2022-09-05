@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatchApiService } from '../api-services/match-api.service';
 
 @Component({
   selector: 'app-match',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchComponent implements OnInit {
 
-  constructor() { }
+  Matches:any=[];
+
+  constructor(private service:MatchApiService, router:Router) {
+    if(!sessionStorage.getItem('SessionKeyEmail')) {
+      router.navigate(['/login']);
+    }
+  }
 
   ngOnInit(): void {
+    this.loadMatches();
+  }
+
+ loadMatches() {
+   const userId = Number(sessionStorage.getItem("SessionId"));
+   this.service.getMatches(userId).subscribe(data => {
+     this.Matches = data;
+     console.log(this.Matches);
+   })
   }
 
 }

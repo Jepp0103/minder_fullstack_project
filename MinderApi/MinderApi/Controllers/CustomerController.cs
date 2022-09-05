@@ -3,6 +3,7 @@ using CryptSharp;
 using Microsoft.AspNetCore.Mvc;
 using MinderApi.Models;
 using MinderApi.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace MinderApi.Controllers {
     [Produces("application/json")]
@@ -21,10 +22,72 @@ namespace MinderApi.Controllers {
                              where customer.CustomerId == customerId
                              select customer;
 
-            System.Diagnostics.Debug.WriteLine("hallllllloooooo");
-            System.Diagnostics.Debug.WriteLine("chosen user: " + chosenUser.SingleOrDefault().Password);
-
             return chosenUser;
+        }
+
+        [HttpGet]
+        [Route("matches/{customerId}")]
+        public IEnumerable<Object> GetUserMatchesByCustomerId(int customerId)
+        {
+            var likedTracksByUser = from tr in musicDbContext.Track
+                                    join li in musicDbContext.Like on tr.TrackId equals li.TrackId
+                                    join cu in musicDbContext.Customer on li.CustomerId equals cu.CustomerId
+                                    where li.CustomerId == customerId
+                                    select new
+                                    {
+                                        TrackId = tr.TrackId,
+                                    };
+
+            var trackMatches = from cu in musicDbContext.Customer
+                              join li in musicDbContext.Like on cu.CustomerId equals li.CustomerId
+                              join tr in musicDbContext.Track on li.TrackId equals tr.TrackId
+                              where li.CustomerId != customerId && likedTracksByUser.Any(query => query.TrackId == tr.TrackId)
+                              select new
+                              {
+                                  CustomerId = cu.CustomerId,
+                                  FirstName = cu.FirstName,
+                                  LastName = cu.LastName
+                              };
+
+            //var userMatches = from match in trackMatches
+
+            return trackMatches;
+        }
+
+        [HttpGet]
+        [Route("matches/tracks/{customerId}")]
+        public IEnumerable<Object> GetUserTrackMatchesByCustomerId(int customerId)
+        {
+            var likedTracksByUser = from tr in musicDbContext.Track
+                        join li in musicDbContext.Like on tr.TrackId equals li.TrackId
+                        join cu in musicDbContext.Customer on li.CustomerId equals cu.CustomerId
+                        where li.CustomerId == customerId
+                        select new {
+                            TrackId = tr.TrackId,
+                        };
+
+            var userMatches = from cu in musicDbContext.Customer
+                          join li in musicDbContext.Like on cu.CustomerId equals li.CustomerId
+                          join tr in musicDbContext.Track on li.TrackId equals tr.TrackId
+                          join al in musicDbContext.Album on tr.AlbumId equals al.AlbumId
+                          join ar in musicDbContext.Artist on al.ArtistId equals ar.ArtistId
+                          join ge in musicDbContext.Genre on tr.GenreId equals ge.GenreId
+                          where li.CustomerId != customerId && likedTracksByUser.Any(query => query.TrackId == tr.TrackId)
+                          select new
+                          {
+                              CustomerId = cu.CustomerId,
+                              FirstName = cu.FirstName,
+                              LastName = cu.LastName,
+                              TrackId = tr.TrackId,
+                              TrackName = tr.Name,
+                              TrackComposer = tr.Composer,
+                              ArtistName = ar.Name,
+                              AlbumTitle = al.Title,
+                              GenreName = ge.Name
+                          };
+
+
+            return userMatches;
         }
 
         [HttpPost]
@@ -98,5 +161,7 @@ namespace MinderApi.Controllers {
 
             return new JsonResult($"Customer with id {customerId} deleted");
         }
+
+
     }
 }

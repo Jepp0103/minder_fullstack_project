@@ -28,7 +28,7 @@ export class LikedTracksComponent implements OnInit {
    }
 
   deleteLike(likeId:number) {
-    if(confirm("Are you sure you want to delete your liked track?")){
+    if (confirm("Are you sure you want to delete your liked track?")){
       this.service.deleteLike(likeId).subscribe(data => {
         window.location.reload();
       });
