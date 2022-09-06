@@ -3,7 +3,6 @@ using CryptSharp;
 using Microsoft.AspNetCore.Mvc;
 using MinderApi.Models;
 using MinderApi.Models.Database;
-using Microsoft.EntityFrameworkCore;
 
 namespace MinderApi.Controllers {
     [Produces("application/json")]
@@ -38,20 +37,23 @@ namespace MinderApi.Controllers {
                                         TrackId = tr.TrackId,
                                     };
 
-            var trackMatches = from cu in musicDbContext.Customer
+            var userMatches = (from cu in musicDbContext.Customer
                               join li in musicDbContext.Like on cu.CustomerId equals li.CustomerId
                               join tr in musicDbContext.Track on li.TrackId equals tr.TrackId
                               where li.CustomerId != customerId && likedTracksByUser.Any(query => query.TrackId == tr.TrackId)
-                              select new
-                              {
+                              group cu by new { 
                                   CustomerId = cu.CustomerId,
                                   FirstName = cu.FirstName,
                                   LastName = cu.LastName
-                              };
+                              } into userGroup
+                              select new
+                              {
+                                  CustomerId = userGroup.Key.CustomerId,
+                                  FirstName = userGroup.Key.FirstName,
+                                  LastName = userGroup.Key.LastName
+                              }).OrderBy(customer => customer.CustomerId);
 
-            //var userMatches = from match in trackMatches
-
-            return trackMatches;
+            return userMatches;
         }
 
         [HttpGet]
@@ -66,7 +68,7 @@ namespace MinderApi.Controllers {
                             TrackId = tr.TrackId,
                         };
 
-            var userMatches = from cu in musicDbContext.Customer
+            var trackMatches = (from cu in musicDbContext.Customer
                           join li in musicDbContext.Like on cu.CustomerId equals li.CustomerId
                           join tr in musicDbContext.Track on li.TrackId equals tr.TrackId
                           join al in musicDbContext.Album on tr.AlbumId equals al.AlbumId
@@ -76,18 +78,15 @@ namespace MinderApi.Controllers {
                           select new
                           {
                               CustomerId = cu.CustomerId,
-                              FirstName = cu.FirstName,
-                              LastName = cu.LastName,
                               TrackId = tr.TrackId,
                               TrackName = tr.Name,
                               TrackComposer = tr.Composer,
                               ArtistName = ar.Name,
                               AlbumTitle = al.Title,
                               GenreName = ge.Name
-                          };
+                          }).OrderBy(customer => customer.CustomerId);
 
-
-            return userMatches;
+            return trackMatches;
         }
 
         [HttpPost]

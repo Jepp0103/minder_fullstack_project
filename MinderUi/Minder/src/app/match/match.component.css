@@ -1,0 +1,29 @@
+#matchesSection {
+  text-align: center;
+  background: sandybrown;
+}
+
+h3 {
+  margin-top: 2%;
+}
+
+.matchTracksDiv {
+  display: grid;
+  grid-template-columns: 15% 25% 15% 25%;
+  margin-left: 15%;
+}
+
+.userDiv {
+  margin-top: 2%;
+  background: sandybrown;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  border-top-style: solid;
+}
+
+.tracksContainer {
+  margin-top: 2%;
+  background: blanchedalmond;
+  width: 90%;
+  margin-left: 5%;
+}

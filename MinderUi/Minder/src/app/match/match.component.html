@@ -1,21 +1,24 @@
-<h1>Matches with other users</h1>
-
-<section *ngFor="let match of Matches">
-  <h3>{{match.FirstName}} {{match.LastName}}</h3>
-  <table >
-    <thead>
-      <tr>
-        <th>Track</th>
-        <th>Genre</th>
-        <th>Composer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-          <td>{{match.TrackName}}</td>
-          <td>{{match.GenreName}}</td>
-          <td>{{match.TrackComposer}}</td>
-       </tr>
-    </tbody>
-  </table>
+<section id="matchesSection">
+  <h1><b>Music track matches with other users</b></h1>
+    <section *ngFor="let match of Matches">
+      <div class="matchDiv">
+          <div *ngIf="match.hasOwnProperty('FirstName')" class ="userDiv">
+            <h4 ><b>{{match.FirstName}} {{match.LastName}}</b></h4>
+            <button >Message {{match.FirstName}}</button>
+          </div>
+          <div class="tracksContainer" *ngIf="match.hasOwnProperty('TrackName')">
+            <h6><b>🎵{{match.TrackName}}🎵</b></h6>
+            <div class="matchTracksDiv" >
+                  <p><b>Artist</b></p>
+                  <p>{{match.ArtistName}}</p>
+                  <p><b>Composer</b></p>
+                  <p>{{match.TrackComposer}}</p>
+                  <p><b>Album</b></p>
+                  <p>{{match.AlbumTitle}}</p>
+                  <p><b>Genre</b></p>
+                  <p>{{match.GenreName}}</p>
+            </div>
+        </div>
+      </div>
+  </section>
 </section>

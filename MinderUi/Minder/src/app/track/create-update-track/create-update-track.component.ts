@@ -72,6 +72,7 @@ export class CreateUpdateTrackComponent implements OnInit {
       Bytes: this.Bytes,
       UnitPrice: this.UnitPrice
     };
+
     this.service.addTrack(content).subscribe(data => {
       this.alertResponse(data, "added");
     });

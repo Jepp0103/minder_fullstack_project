@@ -9,7 +9,11 @@ export class MatchApiService {
   readonly APIUrl = "https://localhost:7151/api";
   constructor(private http:HttpClient) { }
 
-  getMatches(customerId:number):Observable<any[]> {
+  getUserMatches(customerId:number):Observable<any[]> {
     return this.http.get<any>(this.APIUrl + '/customers/matches/' + customerId);
+  }
+
+  getTrackMatches(customerId:number):Observable<any[]> {
+    return this.http.get<any>(this.APIUrl + '/customers/matches/tracks/' + customerId);
   }
 }
