@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import MySettings  from '../../assets/MySettings.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchApiService {
-  readonly APIUrl = "https://localhost:7151/api";
+  readonly APIUrl = MySettings.baseUrl;
   constructor(private http:HttpClient) { }
 
   getUserMatches(customerId:number):Observable<any[]> {

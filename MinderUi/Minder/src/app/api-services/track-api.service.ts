@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import MySettings  from '../../assets/MySettings.json';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackApiService {
 
-  readonly APIUrl = "https://localhost:7151/api";
+  readonly APIUrl = MySettings.baseUrl;
   constructor(private http:HttpClient) { }
 
   getTracks():Observable<any[]> {

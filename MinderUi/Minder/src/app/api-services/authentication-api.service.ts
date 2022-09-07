@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import MySettings  from '../../assets/MySettings.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationApiService {
 
-  readonly APIUrl = "https://localhost:7151/api";
+  readonly APIUrl = MySettings.baseUrl;
   constructor(private http:HttpClient) { }
 
   validateUser(content:any):Observable<any> {
+    console.log("api url here:", this.APIUrl)
     return this.http.post<any>(this.APIUrl + '/authentication/uservalidation', content)
   }
 
