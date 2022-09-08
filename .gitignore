@@ -1,11 +1,15 @@
 # Files
 /MinderApi/MinderApi/appsettings.json
+/MinderApi/MinderApi/Properties/launchSettings.json
+/MinderUi/Minder/src/assets/MySettings.json
 
 # Directories
 /MinderApi/.vs/
 /MinderApi/MinderApi/obj/
 /MinderApi/MinderApi/bin/
 /MinderApi/MinderApi/MinderApi.csproj.user
+/MinderApi/Minder.UnitTests/bin/
+/MinderApi/Minder.UnitTests/obj/
 
 # Logs
 logs

@@ -12,7 +12,6 @@ export class AuthenticationApiService {
   constructor(private http:HttpClient) { }
 
   validateUser(content:any):Observable<any> {
-    console.log("api url here:", this.APIUrl)
     return this.http.post<any>(this.APIUrl + '/authentication/uservalidation', content)
   }
 
