@@ -1,7 +1,7 @@
 a:link { text-decoration: none; }
 
 .container {
-  font-family: cursive;
+  font-family: system-ui;
 
   height: 100%;
   max-width: 100%;

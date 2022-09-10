@@ -27,6 +27,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { LikedTracksComponent } from './track/liked-tracks/liked-tracks.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MatchComponent } from './match/match.component';
+import { MessageComponent } from './match/message/message.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { MatchComponent } from './match/match.component';
     CarouselComponent,
     LikedTracksComponent,
     UserProfileComponent,
-    MatchComponent
+    MatchComponent,
+    MessageComponent
   ],
   imports: [
     CommonModule,

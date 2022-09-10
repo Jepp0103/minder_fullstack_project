@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		App.config = App.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minder.UnitTests", "Minder.UnitTests\Minder.UnitTests.csproj", "{43DE4B39-6F9B-44D7-B452-6BE77220C60A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minder.UnitTests", "Minder.UnitTests\Minder.UnitTests.csproj", "{43DE4B39-6F9B-44D7-B452-6BE77220C60A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

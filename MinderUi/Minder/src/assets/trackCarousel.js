@@ -1,8 +1,8 @@
 class TrackCarousel {
 
-  constructor(element, tracks, userId) {
+  constructor(element, tracks, userId, baseUrl) {
       this.randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-
+      this.baseUrl = baseUrl;
       this.board = element;
       this.userId = userId;
 
@@ -175,7 +175,7 @@ class TrackCarousel {
       };
 
       $.ajax({
-          url: "https://localhost:7151/api/dislikes",
+          url: this.baseUrl + '/dislikes',
           dataType: "text",
           type: "post",
           contentType: "application/json",
@@ -196,7 +196,7 @@ class TrackCarousel {
       };
 
       $.ajax({
-          url: "https://localhost:7151/api/likes",
+          url: this.baseUrl + '/likes',
           dataType: "text",
           type: "post",
           contentType: "application/json",

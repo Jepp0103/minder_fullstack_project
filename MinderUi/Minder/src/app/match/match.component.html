@@ -4,7 +4,7 @@
       <div class="matchDiv">
           <div *ngIf="match.hasOwnProperty('FirstName')" class ="userDiv">
             <h4 ><b>{{match.FirstName}} {{match.LastName}}</b></h4>
-            <button >Message {{match.FirstName}}</button>
+            <button (click)="enableMessageChat()">Message {{match.FirstName}}</button>
           </div>
           <div class="tracksContainer" *ngIf="match.hasOwnProperty('TrackName')">
             <h6><b>🎵{{match.TrackName}}🎵</b></h6>
@@ -20,5 +20,6 @@
             </div>
         </div>
       </div>
+      <app-message *ngIf="match.hasOwnProperty('FirstName') && EnableMessageMatch"></app-message>
   </section>
 </section>

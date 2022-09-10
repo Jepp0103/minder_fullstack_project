@@ -20,7 +20,6 @@ namespace MinderApi.Controllers {
             var chosenUser = from customer in musicDbContext.Customer
                              where customer.CustomerId == customerId
                              select customer;
-
             return chosenUser;
         }
 

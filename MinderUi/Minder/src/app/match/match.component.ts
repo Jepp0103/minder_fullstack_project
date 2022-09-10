@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatchApiService } from '../api-services/match-api.service';
+import { SharedService } from '../api-services/shared.service';
 
 @Component({
   selector: 'app-match',
@@ -12,16 +13,28 @@ export class MatchComponent implements OnInit {
   UserMatches:any=[];
   TrackMatches:any=[];
   Matches:any=[];
+  EnableMessageMatch!: boolean;
 
-  constructor(private service:MatchApiService, router:Router) {
+  constructor(private service:MatchApiService, router:Router, private sharedService:SharedService) {
     if(!sessionStorage.getItem('SessionKeyEmail')) {
       router.navigate(['/login']);
     }
   }
 
-  ngOnInit(): void {
+ ngOnInit(): void {
     this.loadMatches();
-  }
+    this.loadIsMessageEnabled();
+ }
+
+ loadIsMessageEnabled() {
+   this.sharedService.MessageSubject.subscribe(value => {
+     this.EnableMessageMatch = value;
+   });
+ }
+
+ enableMessageChat() {
+    this.sharedService.changeMessageState(true);
+ }
 
  loadMatches() {
    const userId = Number(sessionStorage.getItem("SessionId"));
@@ -42,4 +55,5 @@ export class MatchComponent implements OnInit {
       return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
   }
+
 }

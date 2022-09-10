@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackApiService } from 'src/app/api-services/track-api.service';
+import MySettings from '../../assets/MySettings.json';
 
 declare var TrackCarousel: any;
 
@@ -20,7 +21,7 @@ export class CarouselComponent implements OnInit {
     this.trackService.getTracks().subscribe(data => {
       this.Tracks = data;
       let board = document.querySelector('#board');
-      new TrackCarousel(board, this.Tracks, userId);
+      new TrackCarousel(board, this.Tracks, userId, MySettings.baseUrl);
     });
 
   }

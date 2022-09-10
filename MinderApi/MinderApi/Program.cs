@@ -1,13 +1,22 @@
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using MinderApi.Models.Database;
+using MinderApi.HubConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(c =>
+builder.Services.AddCors(options =>
 {
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    options.AddPolicy("AllowAllheaders", 
+            builder => builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+            );
+});
+
+builder.Services.AddSignalR(options => {
+    options.EnableDetailedErrors = true;
 });
 
 //Json serializer
@@ -31,17 +40,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors(options=>options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("AllowAllheaders");
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+    endpoints.MapHub<MyHub>("/message");
+});
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
