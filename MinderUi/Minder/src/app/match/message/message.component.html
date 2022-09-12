@@ -1,16 +1,16 @@
 <section>
-  <div>
-    <div class="modal-content">
-      <section>
-          <h3></h3>
-      </section>
-      <section>
-          <input class="modalInput" [(ngModel)]="MessageInput" id="nameInp" type="text" required placeholder="Type message">
-      </section>
-      <section id="messageModalFooter">
-        <button id="closeMessageModalBtn" (click)="disableMessageChat()" class="modalBtn">Cancel</button>
+  <div class="modal">
+    <div class="modal-content messagesModalContent">
+      <div class="messagesView">
+        <div *ngFor="let message of Messages">
+          <p><b>{{message.userName}}:</b> {{message.message}}</p>
+        </div>
+      </div>
+      <div id="messageModalFooter">
+        <input class="modalInput" [(ngModel)]="MessageInput" id="nameInp" type="text" required placeholder="Type message">
         <button id="sendMessageBtn" (click)="sendMessage()">Send message</button>
-      </section>
+        <button id="closeMessageModalBtn" (click)="disableMessageChat()" class="modalBtn">Cancel</button>
+      </div>
     </div>
   </div>
 </section>

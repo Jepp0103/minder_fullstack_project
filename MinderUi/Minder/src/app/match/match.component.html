@@ -1,5 +1,7 @@
 <section id="matchesSection">
   <h1><b>Music track matches with other users</b></h1>
+  <app-message *ngIf="EnableMessageMatch"></app-message>
+
     <section *ngFor="let match of Matches">
       <div class="matchDiv">
           <div *ngIf="match.hasOwnProperty('FirstName')" class ="userDiv">
@@ -20,6 +22,6 @@
             </div>
         </div>
       </div>
-      <app-message *ngIf="match.hasOwnProperty('FirstName') && EnableMessageMatch"></app-message>
+      <!-- <app-message *ngIf="match.hasOwnProperty('FirstName') && EnableMessageMatch"></app-message> -->
   </section>
 </section>

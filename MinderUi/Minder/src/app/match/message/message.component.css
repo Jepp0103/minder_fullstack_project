@@ -1,0 +1,9 @@
+.messagesModalContent {
+  max-height: 80%;
+  min-height: 80%;
+}
+
+.messagesView {
+  overflow: scroll;
+  height: 30em;
+}

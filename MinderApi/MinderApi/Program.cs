@@ -46,7 +46,7 @@ app.UseRouting();
 
 app.UseEndpoints(endpoints => {
     endpoints.MapControllers();
-    endpoints.MapHub<MyHub>("/message");
+    endpoints.MapHub<ChatHub>("/message");
 });
 
 // Configure the HTTP request pipeline.

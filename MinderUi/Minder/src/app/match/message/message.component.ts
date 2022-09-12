@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SignalrService } from '../../api-services/signalr.service';
-import MySettings  from '../../../assets/MySettings.json';
 import { SharedService } from 'src/app/api-services/shared.service';
 
 @Component({
@@ -11,45 +10,35 @@ import { SharedService } from 'src/app/api-services/shared.service';
 export class MessageComponent implements OnInit {
 
   MessageInput:string;
-  users:any=[];
+  CurrentUser:string;
+  Messages:any=[];
 
   constructor(public signalrService: SignalrService, private sharedService:SharedService) {
+    this.CurrentUser = String(sessionStorage.getItem('SessionKeyEmail'));
+    this.Messages = this.signalrService.messages;
   }
 
   ngOnInit(): void {
     this.signalrService.startConnection();
-    this.userOnLis(String(sessionStorage.getItem('SessionKeyEmail')));
-
     setTimeout(() => {
-      this.signalrService.askServerListener();
+      this.signalrService.addToChatGroup(this.CurrentUser, "testGroup");
+      this.signalrService.checkGroupJoin();
+      this.signalrService.receiveMessages();
     }, 2000);
   }
 
   sendMessage() {
-    this.signalrService.askServer(this.MessageInput);
+    this.signalrService.sendMessage(this.MessageInput);
     this.MessageInput = "";
   }
 
   ngOnDestroy() {
     this.signalrService.hubConnection.off("serverResponse");
+    this.signalrService.removeFromGroup("testGroup");
   }
 
   disableMessageChat() {
     this.sharedService.changeMessageState(false);
- }
-
- userOnLis(newUser:string): void {
-  this.signalrService.hubConnection.on("userOn", (newUser) => {
-    console.log(newUser);
-    this.users.push(newUser);
-    console.log("this users", this.users)
-  });
-}
-
-userOffLis(): void {
-  this.signalrService.hubConnection.on("userOff", (personId: string) => {
-    this.users = this.users.filter(u => u.id != personId);
-  });
-}
+  }
 
 }
