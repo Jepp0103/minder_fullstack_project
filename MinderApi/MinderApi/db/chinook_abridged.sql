@@ -828,6 +828,33 @@ CREATE TABLE IF NOT EXISTS `genre` (
   PRIMARY KEY (`GenreId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `room`;
+CREATE TABLE IF NOT EXISTS `room` (
+  `RoomId` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`RoomId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `customer_room`;
+CREATE TABLE IF NOT EXISTS `customer_room` (
+  `CustomerRoomId` int(11) NOT NULL AUTO_INCREMENT,
+  `RoomId` int(11) NOT NULL,
+  `CustomerId` int(11) NOT NULL,
+  FOREIGN KEY (`RoomId`) REFERENCES `room` (`RoomId`),
+  FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`),
+  PRIMARY KEY (`CustomerRoomId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE IF NOT EXISTS `message` (
+  `MessageId` int(11) NOT NULL AUTO_INCREMENT,
+  `Text` varchar(120) CHARACTER SET utf8 DEFAULT NULL,
+  `RoomId` int(11) NOT NULL,
+  `CustomerId` int(11) NOT NULL,
+  FOREIGN KEY (`RoomId`) REFERENCES `room` (`RoomId`),
+  FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`),
+  PRIMARY KEY (`MessageId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
 --
 -- Dumping data for table `genre`
 --

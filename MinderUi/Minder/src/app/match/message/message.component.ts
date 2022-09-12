@@ -10,19 +10,21 @@ import { SharedService } from 'src/app/api-services/shared.service';
 export class MessageComponent implements OnInit {
 
   MessageInput:string;
-  CurrentUser:string;
+  CurrentUsername:string;
+  CurrentUserId:string;
   Messages:any=[];
 
   constructor(public signalrService: SignalrService, private sharedService:SharedService) {
-    this.CurrentUser = String(sessionStorage.getItem('SessionKeyEmail'));
+    this.CurrentUsername = String(sessionStorage.getItem('SessionKeyEmail'));
+    this.CurrentUserId = String(sessionStorage.getItem('SessionId'));
     this.Messages = this.signalrService.messages;
   }
 
   ngOnInit(): void {
     this.signalrService.startConnection();
     setTimeout(() => {
-      this.signalrService.addToChatGroup(this.CurrentUser, "testGroup");
-      this.signalrService.checkGroupJoin();
+      this.signalrService.addToRoom(this.CurrentUserId, this.CurrentUsername, '1');
+      this.signalrService.checkRoomJoin();
       this.signalrService.receiveMessages();
     }, 2000);
   }
@@ -34,11 +36,10 @@ export class MessageComponent implements OnInit {
 
   ngOnDestroy() {
     this.signalrService.hubConnection.off("serverResponse");
-    this.signalrService.removeFromGroup("testGroup");
+    this.signalrService.removeFromRoom("testGroup");
   }
 
   disableMessageChat() {
     this.sharedService.changeMessageState(false);
   }
-
 }

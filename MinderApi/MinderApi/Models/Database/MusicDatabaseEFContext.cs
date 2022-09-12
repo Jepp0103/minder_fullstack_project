@@ -17,5 +17,8 @@ namespace MinderApi.Models.Database
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<Track> Track { get; set; }
+        public DbSet<Room> Room { get; set; }
+        public DbSet<CustomerRoom> Customer_Room { get; set; }
+
     }
 }

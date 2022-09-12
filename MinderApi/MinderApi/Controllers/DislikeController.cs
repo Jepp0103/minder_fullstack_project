@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MinderApi.Models;
 using MinderApi.Models.Database;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace MinderApi.Controllers

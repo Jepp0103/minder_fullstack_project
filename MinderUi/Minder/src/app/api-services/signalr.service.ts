@@ -39,18 +39,22 @@ export class SignalrService {
     .catch(err => console.log('Error while starting connection: ' + err))
   }
 
-  addToChatGroup(userName:string, groupName:string) {
-    this.hubConnection.invoke("AddToGroup", userName, groupName)
+  disconnect() {
+
+  }
+
+  addToRoom(userId:string, userName:string, roomId:string) {
+    this.hubConnection.invoke("AddToRoom", userId, userName, roomId)
     .catch(err => console.error(err));
   }
 
-  removeFromGroup(groupName:string) {
-    this.hubConnection.invoke("RemoveFromGroup", groupName)
+  removeFromRoom(groupName:string) {
+    this.hubConnection.invoke("RemoveFromRoom", groupName)
     .catch(err => console.error(err));
   }
 
-  checkGroupJoin() {
-    this.hubConnection.on("groupJoin", (message) => {
+  checkRoomJoin() {
+    this.hubConnection.on("roomJoin", (message) => {
       console.log(message);
     });
   }
@@ -64,7 +68,6 @@ export class SignalrService {
   receiveMessages() {
     this.hubConnection.on("messageResponse", (userName: string, message: string) => {
       this.Messages.push({userName: userName, message: message})
-      this.MessagesSubject.next(this.Messages);
     });
   }
 }

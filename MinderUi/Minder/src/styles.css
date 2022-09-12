@@ -2,10 +2,6 @@ html, body {
   height: 100%;
 }
 
-body.modal-open {
-  overflow: hidden;
-  position: fixed;
-}
 
 :root {
   background-color: lightskyblue;
@@ -73,11 +69,11 @@ table {
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 3; /* Sit on top */
-  padding-top: 20%; /* Location of the box */
-  height: 80%;
+  padding-top: 5%; /* Location of the box */
   left: 0;
   top: 0;
   overflow-y: hidden; /* Enable scroll if needed */
+  width: 60%;
 }
 
 .modal-content {
