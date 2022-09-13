@@ -12,12 +12,13 @@ export class SignalrService {
   CurrentUser:string;
   Messages:any=[];
   MessagesSubject:Subject<any[]>;
-
+  RoomId:string;
 
   constructor() {
     this.CurrentUser = String(sessionStorage.getItem('SessionKeyEmail'));
     this.Messages = [];
     this.MessagesSubject = new Subject();
+    this.RoomId = "";
   }
 
   get messages(): Subject<any[]> {
@@ -43,8 +44,9 @@ export class SignalrService {
 
   }
 
-  addToRoom(userId:string, userName:string, roomId:string) {
-    this.hubConnection.invoke("AddToRoom", userId, userName, roomId)
+  connectToRoom(userId:number, matchId:number) {
+    console.log("add to room", userId, matchId)
+    this.hubConnection.invoke("ConnectToRoom", userId, matchId)
     .catch(err => console.error(err));
   }
 
@@ -54,14 +56,15 @@ export class SignalrService {
   }
 
   checkRoomJoin() {
-    this.hubConnection.on("roomJoin", (message) => {
-      console.log(message);
+    this.hubConnection.on("roomJoin", (data) => {
+      console.log(data);
+      this.RoomId = data;
     });
   }
 
   sendMessage(message:string) {
     this.hubConnection.invoke("SendMessage",
-      this.CurrentUser, message)
+      this.CurrentUser, message, this.RoomId)
     .catch(err => console.error(err));
   }
 

@@ -1,7 +1,7 @@
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using MinderApi.Models.Database;
-using MinderApi.HubConfig;
+using MinderApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 

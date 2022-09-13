@@ -32,8 +32,9 @@ export class MatchComponent implements OnInit {
    });
  }
 
- enableMessageChat() {
+ enableMessageChat(userMatchId:string) {
     this.sharedService.changeMessageState(true);
+    this.sharedService.changeMatchIdState(userMatchId);
  }
 
  loadMatches() {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using MinderApi.Models;
 using MinderApi.Models.Database;
 
-namespace MinderApi.HubConfig
+namespace MinderApi.Hubs
 {
     public class ChatHub : Hub
     {
@@ -17,24 +17,64 @@ namespace MinderApi.HubConfig
             musicDbContext = mDbContext;
         }
 
-        public async Task AddToRoom(string userId, string userName, string roomId) {   
-            try{
-                //var 
+        public bool ValidateTwoUsersInARoom(int userId, int matchId)
+        {
+            var chosenIds = new int[]{userId, matchId};
+            var roomUsersCount = (from r in musicDbContext.Room
+                                  join cr in musicDbContext.Customer_Room on r.RoomId equals cr.RoomId
+                                  where chosenIds.Contains(cr.CustomerId)
+                                  select r).Count();
                 
-                Room room = new Room();
-                musicDbContext.Add(room); 
+            bool isTwoUsers = roomUsersCount == 2 ? true : false;
+            return isTwoUsers;
+        }
+        
+        public string AddRoom(int userId, int matchId) {
+            Room room = new Room();
+            musicDbContext.Add(room);
+            musicDbContext.SaveChanges();
 
-                var lastInsertedRoomId = room.RoomId;
-                CustomerRoom customerRoom = new CustomerRoom() {
-                    RoomId = lastInsertedRoomId,
-                    CustomerId = int.Parse(userId)  
-                };
-                musicDbContext.Add(customerRoom);
+            var lastInsertedRoomId = room.RoomId;
+            CustomerRoom userCustomerRoom = new CustomerRoom()
+            {
+                RoomId = lastInsertedRoomId,
+                CustomerId = userId
+            };
 
-                musicDbContext.SaveChanges();
+            CustomerRoom matchCustomerRoom = new CustomerRoom()
+            {
+                RoomId = lastInsertedRoomId,
+                CustomerId = matchId
+            };
+
+            musicDbContext.Add(userCustomerRoom);
+            musicDbContext.Add(matchCustomerRoom);
+            musicDbContext.SaveChanges();
+            var insertedRoomId = musicDbContext.Room.Where(room => room.RoomId == room.RoomId).FirstOrDefault().RoomId.ToString();
+            return insertedRoomId;
+        }
+
+        public string GetRoomByRoomUsers(int userId, int matchId, string roomId) {
+            var chosenIds = new int[] { userId, matchId };
+            roomId = (from r in musicDbContext.Room
+                      join cr in musicDbContext.Customer_Room on r.RoomId equals cr.RoomId
+                      where chosenIds.Contains(cr.CustomerId)
+                      select r).FirstOrDefault().RoomId.ToString();
+            return roomId;
+        }
+
+        public async Task ConnectToRoom(int userId, int matchId) {   
+            try{
+                string roomId = "";
+
+                if (!ValidateTwoUsersInARoom(userId, matchId)) {
+                    roomId = AddRoom(userId, matchId);
+                } else {
+                    roomId = GetRoomByRoomUsers(userId, matchId, roomId);
+                }
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
-                await Clients.Group(roomId).SendAsync("roomJoin", $"{userName} has joined the group {roomId}.");
+                await Clients.Group(roomId).SendAsync("roomJoin", roomId);
             } catch (Exception ex) {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
@@ -45,8 +85,8 @@ namespace MinderApi.HubConfig
             await Clients.Group(groupName).SendAsync("roomJoin", $"{Context.ConnectionId} has left the group {groupName}.");
         }
 
-        public async Task SendMessage(string userName, string message) {
-            await Clients.Group("1").SendAsync(
+        public async Task SendMessage(string userName, string message, string roomId) {
+            await Clients.Group(roomId).SendAsync(
                 "messageResponse",
                 userName,
                 message
