@@ -14,12 +14,13 @@ export class MessageComponent implements OnInit {
   CurrentUserId:number;
   Messages:any=[];
   MatchId:number;
+  RoomId:string;
 
   constructor(public signalrService: SignalrService, private sharedService:SharedService) {
     this.CurrentUsername = String(sessionStorage.getItem('SessionKeyEmail'));
     this.CurrentUserId = Number(sessionStorage.getItem('SessionId'));
-    this.Messages = this.signalrService.messages;
     this.MatchId = Number(this.sharedService.matchId);
+    this.RoomId = this.signalrService.roomId;
   }
 
   ngOnInit(): void {
@@ -27,6 +28,10 @@ export class MessageComponent implements OnInit {
     setTimeout(() => {
       this.signalrService.connectToRoom(this.CurrentUserId, this.MatchId);
       this.signalrService.checkRoomJoin();
+    }, 1000);
+    setTimeout(() => {
+      //Enabling to receive socket messages from signal r.
+      this.Messages = this.signalrService.messages;
       this.signalrService.receiveMessages();
     }, 2000);
   }
@@ -37,8 +42,9 @@ export class MessageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.signalrService.hubConnection.off("serverResponse");
-    this.signalrService.removeFromRoom("testGroup");
+    let messageResponseRoom = "messageResponse" + this.RoomId;
+    this.signalrService.hubConnection.off(messageResponseRoom);
+    this.signalrService.removeFromRoom();
   }
 
   disableMessageChat() {

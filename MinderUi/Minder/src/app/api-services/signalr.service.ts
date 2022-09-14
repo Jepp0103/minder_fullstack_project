@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import MySettings  from '../../assets/MySettings.json';
 import { Subject } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +11,26 @@ import { Subject } from 'rxjs';
 export class SignalrService {
   hubConnection:signalR.HubConnection;
   CurrentUser:string;
+  CurrentUserId:string;
   Messages:any=[];
   MessagesSubject:Subject<any[]>;
   RoomId:string;
+  readonly APIUrl = MySettings.baseUrl;
 
-  constructor() {
+  constructor(private http:HttpClient) {
     this.CurrentUser = String(sessionStorage.getItem('SessionKeyEmail'));
+    this.CurrentUserId = String(sessionStorage.getItem('SessionId'));
     this.Messages = [];
     this.MessagesSubject = new Subject();
     this.RoomId = "";
   }
 
-  get messages(): Subject<any[]> {
+  get messages() {
     return this.Messages;
+  }
+
+  get roomId() {
+    return this.RoomId;
   }
 
   startConnection = () => {
@@ -40,37 +48,44 @@ export class SignalrService {
     .catch(err => console.log('Error while starting connection: ' + err))
   }
 
-  disconnect() {
-
-  }
-
   connectToRoom(userId:number, matchId:number) {
-    console.log("add to room", userId, matchId)
     this.hubConnection.invoke("ConnectToRoom", userId, matchId)
     .catch(err => console.error(err));
   }
 
-  removeFromRoom(groupName:string) {
-    this.hubConnection.invoke("RemoveFromRoom", groupName)
+  removeFromRoom() {
+    this.hubConnection.invoke("RemoveFromRoom", this.RoomId)
     .catch(err => console.error(err));
+    this.Messages = [];
   }
 
   checkRoomJoin() {
     this.hubConnection.on("roomJoin", (data) => {
-      console.log(data);
       this.RoomId = data;
+
+      //Calling stored messages from the db.
+      this.callStoredMessages(Number(this.RoomId)).subscribe(data => {
+        this.Messages = data;
+      });
     });
   }
 
   sendMessage(message:string) {
     this.hubConnection.invoke("SendMessage",
-      this.CurrentUser, message, this.RoomId)
+      this.CurrentUser, this.CurrentUserId, message, this.RoomId)
     .catch(err => console.error(err));
   }
 
   receiveMessages() {
-    this.hubConnection.on("messageResponse", (userName: string, message: string) => {
-      this.Messages.push({userName: userName, message: message})
+    let messageResponseRoom = "messageResponse" + this.RoomId;
+    this.hubConnection.on(messageResponseRoom, (userName: string, text: string) => {
+
+      this.Messages.push({userName: userName, message: text})
     });
   }
+
+  callStoredMessages(roomId:number):Observable<any> {
+    return this.http.get<any>(this.APIUrl + '/messages/' + roomId);
+  }
+
 }

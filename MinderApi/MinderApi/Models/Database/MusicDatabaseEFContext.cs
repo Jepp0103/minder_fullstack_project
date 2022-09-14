@@ -19,6 +19,7 @@ namespace MinderApi.Models.Database
         public DbSet<Track> Track { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<CustomerRoom> Customer_Room { get; set; }
+        public DbSet<Message> Message { get; set; }
 
     }
 }

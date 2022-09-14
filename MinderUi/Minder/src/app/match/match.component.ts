@@ -41,13 +41,14 @@ export class MatchComponent implements OnInit {
    const userId = Number(sessionStorage.getItem("SessionId"));
    this.service.getUserMatches(userId).subscribe(data => {
     this.UserMatches = data;
-    });
 
-    this.service.getTrackMatches(userId).subscribe(data => {
-        this.TrackMatches = data;
-        this.Matches = this.UserMatches.concat(this.TrackMatches);
-        this.Matches = this.sortByKey(this.Matches, 'CustomerId');
-    })
+        //After users are loaded then associated track matches are loaded.
+        this.service.getTrackMatches(userId).subscribe(data => {
+          this.TrackMatches = data;
+          this.Matches = this.UserMatches.concat(this.TrackMatches);
+          this.Matches = this.sortByKey(this.Matches, 'CustomerId');
+      })
+    });
   }
 
   sortByKey(array:[], key:string){
